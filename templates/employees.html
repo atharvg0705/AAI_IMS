@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block top_title %}Employees{% endblock %}
+{% block extra_css %}
+<style>
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+    .table-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+    }
+    table { width:100%; border-collapse: collapse; font-size:0.85rem; }
+    th,td { padding:0.6rem 0.75rem; border-bottom:1px solid var(--border); text-align:left; }
+    thead { background:#f9fafb; }
+    .actions { display:flex; gap:0.35rem; }
+    .btn-sm {
+        border:none; border-radius:4px; padding:0.25rem 0.6rem;
+        font-size:0.75rem; cursor:pointer;
+        background:#e5e7eb; color:#111827;
+    }
+    .btn-sm-danger { background:#fee2e2; color:#b91c1c; }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">Employees</h1>
+
+<div class="toolbar">
+    <div></div>
+    <a href="/add-employee" class="btn-primary">+ Add Employee</a>
+</div>
+
+<div class="table-card">
+    {% if employees %}
+    <table>
+        <thead>
+            <tr>
+                <th>Employee ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Assets</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for emp in employees %}
+            <tr>
+                <td>{{ emp.employee_id }}</td>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.department }}</td>
+                <td>{{ emp.assets_assigned }}</td>
+                <td>
+                    <div class="actions">
+                        <a href="/edit-employee/{{ emp.id }}" class="btn-sm">Edit</a>
+                        <form method="POST" action="/delete-employee/{{ emp.id }}" onsubmit="return confirm('Delete?')">
+                            <button class="btn-sm btn-sm-danger" type="submit">Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="padding:1rem;color:var(--text-muted);">No employees found.</p>
+    {% endif %}
+</div>
+{% endblock %}

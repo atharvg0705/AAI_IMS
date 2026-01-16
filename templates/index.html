@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block top_title %}Dashboard{% endblock %}
+{% block extra_css %}
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    .stat-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        padding: 1rem 1.1rem;
+        border: 1px solid var(--border);
+        border-left: 5px solid var(--primary);
+    }
+    .stat-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+    }
+    .stat-value {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--primary);
+    }
+    .stat-extra {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+    }
+    .table-card {
+        margin-top: 1rem;
+        background: var(--card-bg);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+    }
+    .table-header {
+        padding: 0.9rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+    }
+    thead { background: #f9fafb; }
+    th, td { padding: 0.65rem 0.8rem; text-align: left; border-bottom: 1px solid var(--border); }
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.15rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+    }
+    .badge-deployed { background:#dcfce7; color:#166534; }
+    .badge-store { background:#e5e7eb; color:#374151; }
+    .badge-maint { background:#fef9c3; color:#854d0e; }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">Welcome back</h1>
+<p class="page-subtitle">Quick overview of assets and inventory status.</p>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-label">Total Assets</div>
+        <div class="stat-value">{{ stats.total_assets }}</div>
+        <div class="stat-extra">All inventory</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">In Store</div>
+        <div class="stat-value">{{ stats.in_store }}</div>
+        <div class="stat-extra">₹{{ "{:,.0f}".format(stats.in_store_value) }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Deployed</div>
+        <div class="stat-value">{{ stats.deployed }}</div>
+        <div class="stat-extra">₹{{ "{:,.0f}".format(stats.deployed_value) }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">In Maintenance</div>
+        <div class="stat-value">{{ stats.in_maintenance }}</div>
+        <div class="stat-extra">Service pending</div>
+    </div>
+</div>
+
+<div class="table-card">
+    <div class="table-header">
+        <span>Recent Assets</span>
+        <a href="/add-asset" class="btn-primary">+ Add Asset</a>
+    </div>
+    {% if recent_assets %}
+    <table>
+        <thead>
+            <tr>
+                <th>Asset</th>
+                <th>Serial</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for asset in recent_assets %}
+            <tr>
+                <td>{{ asset.asset_name }}</td>
+                <td>{{ asset.serial_number }}</td>
+                <td>{{ asset.category }}</td>
+                <td>{{ asset.location }}</td>
+                <td>
+                    {% if asset.status == 'Deployed' %}
+                    <span class="badge badge-deployed">Deployed</span>
+                    {% elif asset.status == 'In Store' %}
+                    <span class="badge badge-store">In Store</span>
+                    {% else %}
+                    <span class="badge badge-maint">{{ asset.status }}</span>
+                    {% endif %}
+                </td>
+                <td>₹{{ "{:,.0f}".format(asset.purchase_cost or 0) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="padding: 1rem; font-size:0.9rem; color:var(--text-muted);">No assets found.</p>
+    {% endif %}
+</div>
+{% endblock %}

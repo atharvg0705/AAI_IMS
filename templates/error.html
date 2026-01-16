@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="table-section" style="max-width: 500px; margin: 3rem auto;">
+        <div style="text-align: center; padding: 3rem;">
+            <h1 style="font-size: 3rem; color: var(--danger); margin-bottom: 1rem;">⚠️ Error</h1>
+            
+            <h2 style="color: var(--text-dark); margin-bottom: 1rem;">
+                {{ error_code or '500' }}
+            </h2>
+            
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">
+                {{ error_message or 'Something went wrong. Please try again.' }}
+            </p>
+
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="/" class="btn-primary">🏠 Go to Dashboard</a>
+                <a href="javascript:history.back()" class="btn-secondary">⬅️ Go Back</a>
+            </div>
+
+            {% if details %}
+            <div style="margin-top: 2rem; padding: 1rem; background: var(--light-bg); border-radius: 6px; text-align: left;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;"><strong>Details:</strong></p>
+                <code style="color: var(--danger); font-size: 0.85rem;">{{ details }}</code>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

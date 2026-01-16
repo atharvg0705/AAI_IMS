@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block top_title %}Report Issue{% endblock %}
+{% block extra_css %}
+<style>
+    .form-card {
+        max-width: 700px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 2rem;
+        margin: 0 auto;
+    }
+    .form-section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+    }
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+    label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+        display: block;
+        font-weight: 600;
+    }
+    input[type="text"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 0.65rem;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        font-size: 0.9rem;
+    }
+    textarea {
+        min-height: 120px;
+        font-family: inherit;
+    }
+    .form-actions {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">Report Issue</h1>
+
+<form method="POST">
+    <div class="form-card">
+        <div class="form-section-title">🚨 Asset Issue Report</div>
+        
+        <div class="form-group">
+            <label>Asset</label>
+            <input type="text" value="{{ asset.asset_name }} ({{ asset.serial_number }})" disabled>
+        </div>
+        
+        <div class="form-group">
+            <label>Report Type *</label>
+            <select name="report_type" required>
+                <option value="issue">Issue / Problem</option>
+                <option value="maintenance">Maintenance Request</option>
+                <option value="comment">General Comment</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Message *</label>
+            <textarea name="message" placeholder="Describe the issue in detail..." required></textarea>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Submit Report</button>
+            <a href="/employee-dashboard" class="btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+{% endblock %}

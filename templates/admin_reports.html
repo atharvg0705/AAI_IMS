@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% block top_title %}Reports & Issues{% endblock %}
+{% block extra_css %}
+<style>
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    .filters {
+        display: flex;
+        gap: 0.5rem;
+    }
+    .filters select {
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        font-size: 0.9rem;
+    }
+    .table-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+    .table-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        font-weight: 600;
+        font-size: 1.05rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    table { width:100%; border-collapse: collapse; font-size:0.85rem; }
+    th,td { padding:0.75rem 1rem; border-bottom:1px solid var(--border); text-align:left; }
+    thead { background:#f9fafb; }
+    .badge {
+        display:inline-flex;
+        padding:0.25rem 0.65rem;
+        border-radius:999px;
+        font-size:0.75rem;
+        font-weight:600;
+    }
+    .badge-pending { background:#fef9c3; color:#854d0e; }
+    .badge-resolved { background:#dcfce7; color:#166534; }
+    .badge-issue { background:#fee2e2; color:#991b1b; }
+    .badge-maintenance { background:#dbeafe; color:#1e40af; }
+    .badge-comment { background:#e5e7eb; color:#374151; }
+    .btn-resolve {
+        background: var(--success);
+        color: #fff;
+        padding: 0.35rem 0.75rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        font-weight: 600;
+    }
+    .btn-resolve:hover {
+        background: #16a34a;
+    }
+    .stats-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    .stat-box {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem;
+        text-align: center;
+    }
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    .stat-label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-top: 0.25rem;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">📋 Reports & Issues</h1>
+<p class="page-subtitle">View all reports submitted by employees</p>
+
+<!-- Stats -->
+<div class="stats-row">
+    <div class="stat-box">
+        <div class="stat-number">{{ reports|length }}</div>
+        <div class="stat-label">Total Reports</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number">{{ reports|selectattr('0.status', 'equalto', 'pending')|list|length }}</div>
+        <div class="stat-label">Pending</div>
+    </div>
+    <div class="stat-box">
+        <div class="stat-number">{{ reports|selectattr('0.status', 'equalto', 'resolved')|list|length }}</div>
+        <div class="stat-label">Resolved</div>
+    </div>
+</div>
+
+<!-- Filters -->
+<div class="toolbar">
+    <form method="GET" class="filters">
+        <select name="status" onchange="this.form.submit()">
+            <option value="">All Status</option>
+            <option value="pending" {% if status_filter == 'pending' %}selected{% endif %}>Pending</option>
+            <option value="resolved" {% if status_filter == 'resolved' %}selected{% endif %}>Resolved</option>
+        </select>
+    </form>
+</div>
+
+<!-- Reports Table -->
+<div class="table-card">
+    <div class="table-header">
+        <span>All Reports</span>
+    </div>
+    {% if reports %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Employee</th>
+                <th>Asset</th>
+                <th>Type</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for report, asset, employee in reports %}
+            <tr>
+                <td>{{ report.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    <strong>{{ employee.name }}</strong><br>
+                    <small style="color:var(--text-muted);">{{ employee.employee_id }}</small>
+                </td>
+                <td>
+                    <strong>{{ asset.asset_name }}</strong><br>
+                    <small style="color:var(--text-muted);">{{ asset.serial_number }}</small>
+                </td>
+                <td>
+                    {% if report.report_type == 'issue' %}
+                    <span class="badge badge-issue">Issue</span>
+                    {% elif report.report_type == 'maintenance' %}
+                    <span class="badge badge-maintenance">Maintenance</span>
+                    {% else %}
+                    <span class="badge badge-comment">Comment</span>
+                    {% endif %}
+                </td>
+                <td style="max-width:250px;">{{ report.message }}</td>
+                <td>
+                    {% if report.status == 'pending' %}
+                    <span class="badge badge-pending">Pending</span>
+                    {% else %}
+                    <span class="badge badge-resolved">Resolved</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if report.status == 'pending' %}
+                    <form method="POST" action="/resolve-report/{{ report.id }}" style="display:inline;">
+                        <button type="submit" class="btn-resolve">✓ Resolve</button>
+                    </form>
+                    {% else %}
+                    <span style="color:var(--text-muted);font-size:0.8rem;">Resolved</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="padding:1.5rem;color:var(--text-muted);">No reports submitted yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

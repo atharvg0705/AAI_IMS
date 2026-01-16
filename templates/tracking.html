@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block top_title %}Asset Tracking{% endblock %}
+{% block extra_css %}
+<style>
+    .table-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+    }
+    table { width:100%; border-collapse: collapse; font-size:0.85rem; }
+    th,td { padding:0.6rem 0.75rem; border-bottom:1px solid var(--border); text-align:left; }
+    thead { background:#f9fafb; }
+    .badge {
+        display:inline-flex;
+        padding:0.15rem 0.55rem;
+        border-radius:999px;
+        font-size:0.75rem;
+    }
+    .badge-active { background:#dcfce7; color:#166534; }
+    .badge-returned { background:#e5e7eb; color:#374151; }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">📋 Asset Tracking</h1>
+<p class="page-subtitle">Assignment and return history of all assets.</p>
+
+<div class="table-card">
+    {% if assignments %}
+    <table>
+        <thead>
+            <tr>
+                <th>Asset</th>
+                <th>Serial</th>
+                <th>Employee</th>
+                <th>Department</th>
+                <th>Assigned Date</th>
+                <th>Returned Date</th>
+                <th>Status</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for assignment, asset, employee in assignments %}
+            <tr>
+                <td><strong>{{ asset.asset_name }}</strong></td>
+                <td>{{ asset.serial_number }}</td>
+                <td>{{ employee.name }}</td>
+                <td>{{ employee.department }}</td>
+                <td>{{ assignment.assigned_date.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    {% if assignment.returned_date %}
+                        {{ assignment.returned_date.strftime('%Y-%m-%d') }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+                <td>
+                    {% if assignment.returned_date %}
+                        <span class="badge badge-returned">Returned</span>
+                    {% else %}
+                        <span class="badge badge-active">Active</span>
+                    {% endif %}
+                </td>
+                <td>{{ assignment.notes }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="padding:1.5rem;color:var(--text-muted);">No tracking records found.</p>
+    {% endif %}
+</div>
+
+<a href="/assets" class="btn-primary" style="margin-top:1rem;">← Back to Assets</a>
+{% endblock %}

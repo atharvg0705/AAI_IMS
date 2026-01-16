@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block top_title %}Login{% endblock %}
+{% block extra_css %}
+<style>
+    .login-container {
+        max-width: 420px;
+        margin: 4rem auto;
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        border: 1px solid var(--border);
+    }
+    .login-title {
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--text-main);
+    }
+    .login-subtitle {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+    .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text-main);
+        margin-bottom: 0.4rem;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--border);
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+    }
+    .form-group input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(255,138,61,0.1);
+    }
+    .btn-login {
+        width: 100%;
+        padding: 0.85rem;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 1rem;
+        box-shadow: 0 4px 12px rgba(255,138,61,0.3);
+    }
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255,138,61,0.4);
+    }
+    .login-help {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="login-container">
+    <h2 class="login-title">🔐 Login</h2>
+    <p class="login-subtitle">AAI Inventory Management System</p>
+    
+    <form method="POST">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" name="username" placeholder="admin or employee ID" required autofocus>
+        </div>
+        
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Enter password" required>
+        </div>
+        
+        <button type="submit" class="btn-login">Login</button>
+    </form>
+    
+    <div class="login-help">
+        <p><strong>Demo Accounts:</strong></p>
+        <p>Admin: admin / admin123</p>
+        <p>Employee: Create via Admin panel</p>
+    </div>
+</div>
+{% endblock %}

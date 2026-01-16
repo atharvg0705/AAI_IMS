@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AAI Inventory Management{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff8a3d;
+            --primary-dark: #f1721c;
+            --primary-light: #ffb380;
+            --aai-blue: #003d82;
+            --aai-blue-light: #4a90e2;
+            --page-bg: #f4f6fb;
+            --card-bg: #ffffff;
+            --border: #e0e4f0;
+            --text-main: #1f2933;
+            --text-muted: #6b7280;
+            --success: #22c55e;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--page-bg);
+            color: var(--text-main);
+        }
+
+        /* AAI Header with Centered Title */
+        .aai-header {
+            background: linear-gradient(135deg, #003d82 0%, #002952 50%, #001a3d 100%);
+            color: #fff;
+            padding: 1.1rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 6px 20px rgba(0,61,130,0.35);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .aai-logo-box {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border-radius: 10px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+
+        .aai-logo-box img {
+            width: 80px;
+            height: 200px;
+            object-fit: contain;
+        }
+
+        .aai-center {
+            flex: 1;
+            text-align: center;
+            padding: 0 1.5rem;
+        }
+
+        .aai-title {
+            font-family: 'Noto Sans Devanagari', 'Roboto', sans-serif;
+            font-size: 2.2rem;
+            font-weight:800;
+            letter-spacing: 1.2px;
+            line-height: 1.4;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #ffffff, #e0f2fe, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .aai-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.15rem;
+            min-width: 220px;
+        }
+
+        .aai-subtitle {
+            font-size: 1rem;
+            font-weight: 200;
+            letter-spacing: 1.5px;
+            color: var(--primary-light);
+            text-transform: uppercase;
+        }
+
+        /* Layout */
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 75px);
+        }
+
+        /* Wavy Sidebar with Gradient */
+        .sidebar {
+            width: 240px;
+            background: linear-gradient(165deg, 
+                #1a3a5c 0%, 
+                #2d5a7b 25%, 
+                #ff8a3d15 50%,
+                #4a90e215 75%,
+                #1a3a5c 100%
+            );
+            position: relative;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,138,61,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(74,144,226,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255,138,61,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .sidebar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 120%;
+            height: 200%;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 35px,
+                    rgba(255,138,61,0.03) 35px,
+                    rgba(255,138,61,0.03) 70px
+                );
+            pointer-events: none;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 1.5rem 0.75rem;
+            flex: 1;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.85rem 1.15rem;
+            margin: 0.25rem 0.5rem;
+            border-radius: 10px;
+            color: #1f0d0d;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(5px);
+            background: rgba(255,255,255,0.30);
+            border: 3px solid rgba(255, 153, 0, 0.3);
+        }
+
+        .sidebar-menu a span {
+            font-size: 1.1rem;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+        }
+
+        .sidebar-menu a:hover {
+            background: linear-gradient(135deg, 
+                rgba(255,138,61,0.25) 0%, 
+                rgba(74,144,226,0.15) 100%
+            );
+            transform: translateX(5px);
+            color: #fff;
+            border-color: rgba(255,138,61,0.4);
+            box-shadow: 
+                0 4px 15px rgba(255,138,61,0.25),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+        }
+
+        .sidebar-menu a.active {
+            background: linear-gradient(135deg, 
+                var(--primary) 0%, 
+                var(--primary-dark) 100%
+            );
+            color: #fff;
+            font-weight: 600;
+            border-color: transparent;
+            box-shadow: 
+                0 6px 20px rgba(255,138,61,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .sidebar-footer {
+            padding: 1.25rem;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            background: rgba(0,0,0,0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            height: 65px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .topbar-left {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .topbar-left::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+            border-radius: 2px;
+        }
+
+        .topbar-search {
+            flex: 1;
+            max-width: 450px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .topbar-search input {
+            width: 100%;
+            padding: 0.65rem 1rem;
+            padding-left: 2.5rem;
+            border-radius: 50px;
+            border: 2px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s;
+            background: #fff;
+        }
+
+        .topbar-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255,138,61,0.12);
+            background: #fffaf7;
+        }
+
+        .topbar-search span {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .topbar-user {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(255,138,61,0.3);
+            border: 2px solid #fff;
+        }
+
+        .topbar-user:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(255,138,61,0.45);
+        }
+
+        /* Content Area */
+        .content {
+            padding: 1.75rem 2rem 2.5rem;
+        }
+
+        .page-title {
+            font-size: 1.75rem;
+            margin-bottom: 0.35rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .page-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1.75rem;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 0.85rem 1.15rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            font-weight: 500;
+        }
+        .alert-success { 
+            background: linear-gradient(135deg, #dcfce7 0%, #d1fae5 100%);
+            color: #166534;
+            border-left: 4px solid var(--success);
+            box-shadow: 0 2px 8px rgba(34,197,94,0.15);
+        }
+        .alert-danger { 
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #991b1b;
+            border-left: 4px solid var(--danger);
+            box-shadow: 0 2px 8px rgba(239,68,68,0.15);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border: none;
+            color: #fff;
+            padding: 0.65rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(255,138,61,0.25);
+        }
+        .btn-primary:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,138,61,0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 0.65rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            transform: translateY(-1px);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .aai-header {
+                padding: 0.85rem 1.25rem;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+            .aai-center {
+                order: 3;
+                width: 100%;
+                padding: 0.5rem 0 0 0;
+                text-align: center;
+            }
+            .aai-title {
+                font-size: 1.05rem;
+            }
+            .aai-subtitle {
+                font-size: 0.75rem;
+            }
+            .sidebar { 
+                display: none; 
+            }
+            .topbar { 
+                padding: 0 1rem; 
+            }
+            .topbar-search {
+                max-width: 180px;
+                margin: 0 0.75rem;
+            }
+            .content { 
+                padding: 1.25rem; 
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<!-- AAI Branding Header -->
+<header class="aai-header">
+    <div class="aai-logo-box">
+        <img src="{{ url_for('static', filename='aai2.png') }}" alt="AAI Logo">
+    </div>
+    <div class="aai-center">
+        <div class="aai-title">Airports Authority of India</div>
+    </div>
+    <div class="aai-right">
+        <div class="aai-subtitle">Inventory Management System</div>
+    </div>
+</header>
+
+<!-- Main Layout -->
+<div class="layout">
+    <!-- Wavy Gradient Sidebar -->
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            {% if session.role == 'admin' %}
+            <li><a href="/" class="{% if request.endpoint == 'index' %}active{% endif %}"><span>🏠</span> Dashboard</a></li>
+            <li><a href="/assets" class="{% if request.endpoint in ['list_assets','add_asset','edit_asset'] %}active{% endif %}"><span>📦</span> Assets</a></li>
+            <li><a href="/employees" class="{% if request.endpoint in ['list_employees','add_employee','edit_employee'] %}active{% endif %}"><span>👥</span> Employees</a></li>
+            <li><a href="/tracking" class="{% if request.endpoint == 'tracking' %}active{% endif %}"><span>📋</span> Tracking</a></li>
+            <li><a href="#"><span>🛠</span> Maintenance</a></li>
+            <li><a href="/reports" class="{% if request.endpoint == 'admin_reports' %}active{% endif %}"><span>📊</span> Reports</a></li>
+
+            <li><a href="#"><span>⚙️</span> Settings</a></li>
+            <li><a href="/logout"><span>🚪</span> Logout</a></li>
+            {% elif session.role == 'employee' %}
+            <li><a href="/employee-dashboard" class="{% if request.endpoint == 'employee_dashboard' %}active{% endif %}"><span>🏠</span> My Dashboard</a></li>
+            <li><a href="/employee-dashboard"><span>📦</span> My Assets</a></li>
+            <li><a href="/employee-dashboard"><span>📋</span> My Reports</a></li>
+            <li><a href="/logout"><span>🚪</span> Logout</a></li>
+            {% else %}
+            <li><a href="/" class="active"><span>🏠</span> Dashboard</a></li>
+            <li><a href="/assets"><span>📦</span> Assets</a></li>
+            <li><a href="/employees"><span>👥</span> Employees</a></li>
+            <li><a href="/tracking"><span>📋</span> Tracking</a></li>
+            <li><a href="#"><span>🛠</span> Maintenance</a></li>
+            <li><a href="#"><span>📊</span> Reports</a></li>
+            <li><a href="#"><span>⚙️</span> Settings</a></li>
+            {% endif %}
+        </ul>
+        <div class="sidebar-footer">
+            © 2026 AAI IMS
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main">
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">{% block top_title %}Dashboard{% endblock %}</div>
+            <div class="topbar-search">
+                <span>🔍</span>
+                <input type="text" placeholder="Search assets...">
+            </div>
+            <div class="topbar-user">{{ session.username[:2].upper() if session.username else 'IN' }}</div>
+        </header>
+
+        <!-- Content -->
+        <main class="content">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {% if category == 'success' %}✓{% else %}⚠{% endif %}
+                        {{ message }}
+                    </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+            
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block top_title %}Edit Asset{% endblock %}
+{% block extra_css %}
+<style>
+    .form-card {
+        max-width: 900px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 1.5rem 1.75rem 1.25rem;
+    }
+    .form-section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--primary);
+    }
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+        gap: 1rem 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+    label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+        display: block;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 0.55rem 0.6rem;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        font-size: 0.9rem;
+    }
+    .form-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">Edit Asset: {{ asset.asset_name }}</h1>
+
+<form method="POST">
+    <div class="form-card">
+        <div class="form-section-title">✏️ Asset Details</div>
+
+        <div class="form-grid">
+            <div>
+                <label>Asset Name *</label>
+                <input type="text" name="asset_name" value="{{ asset.asset_name }}" required>
+            </div>
+            <div>
+                <label>Serial Number *</label>
+                <input type="text" name="serial_number" value="{{ asset.serial_number }}" required>
+            </div>
+            <div>
+                <label>Category *</label>
+                <select name="category" required>
+                    <option selected>{{ asset.category }}</option>
+                    <option>Server</option>
+                    <option>Laptop</option>
+                    <option>Network Equipment</option>
+                </select>
+            </div>
+            <div>
+                <label>Location *</label>
+                <input type="text" name="location" value="{{ asset.location }}" required>
+            </div>
+            <div>
+                <label>Assign to Employee</label>
+                <select name="assigned_to">
+                    <option value="">Unassigned</option>
+                    {% for employee in employees %}
+                    <option value="{{ employee.name }}" {% if asset.assigned_to == employee.name %}selected{% endif %}>{{ employee.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label>Status *</label>
+                <select name="status" required>
+                    <option selected>{{ asset.status }}</option>
+                    <option>In Store</option>
+                    <option>Deployed</option>
+                    <option>In Maintenance</option>
+                </select>
+            </div>
+            <div>
+                <label>Asset Tag</label>
+                <input type="text" name="asset_tag" value="{{ asset.asset_tag or '' }}">
+            </div>
+            <div>
+                <label>Vendor Name</label>
+                <input type="text" name="vendor_name" value="{{ asset.vendor_name or '' }}">
+            </div>
+            <div>
+                <label>Purchase Cost</label>
+                <input type="number" step="0.01" name="purchase_cost" value="{{ asset.purchase_cost or 0 }}">
+            </div>
+            <div>
+                <label>Warranty Expiry</label>
+                <input type="date" name="warranty_expiry" value="{{ asset.warranty_expiry or '' }}">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Update Asset</button>
+            <a href="/assets" class="btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+{% endblock %}

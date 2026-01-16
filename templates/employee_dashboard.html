@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block top_title %}My Dashboard{% endblock %}
+{% block extra_css %}
+<style>
+    .welcome-card {
+        background: linear-gradient(135deg, var(--aai-blue) 0%, #4a90e2 100%);
+        color: #fff;
+        padding: 1.5rem 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 16px rgba(0,61,130,0.2);
+    }
+    .welcome-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+    .table-card {
+        background: var(--card-bg);
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        overflow: hidden;
+        margin-bottom: 2rem;
+    }
+    .table-header {
+        padding: 1rem 1.25rem;
+        border-bottom: 1px solid var(--border);
+        font-weight: 600;
+        font-size: 1.05rem;
+    }
+    table { width:100%; border-collapse: collapse; font-size:0.85rem; }
+    th,td { padding:0.75rem 1rem; border-bottom:1px solid var(--border); text-align:left; }
+    thead { background:#f9fafb; }
+    .btn-report {
+        background: var(--primary);
+        color: #fff;
+        padding: 0.35rem 0.75rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="welcome-card">
+    <div class="welcome-title">Welcome, {{ employee.name }}!</div>
+    <p>{{ employee.designation }} | {{ employee.department }}</p>
+</div>
+
+<h2 class="page-title">My Assigned Assets</h2>
+
+<div class="table-card">
+    <div class="table-header">📦 Assets Assigned to You</div>
+    {% if assets %}
+    <table>
+        <thead>
+            <tr>
+                <th>Asset Name</th>
+                <th>Serial Number</th>
+                <th>Category</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for asset in assets %}
+            <tr>
+                <td><strong>{{ asset.asset_name }}</strong></td>
+                <td>{{ asset.serial_number }}</td>
+                <td>{{ asset.category }}</td>
+                <td>{{ asset.location }}</td>
+                <td>{{ asset.status }}</td>
+                <td>
+                    <a href="/report-asset/{{ asset.id }}" class="btn-report">Report Issue</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="padding:1.5rem;color:var(--text-muted);">No assets assigned yet.</p>
+    {% endif %}
+</div>
+
+<h2 class="page-title">My Reports</h2>
+
+<div class="table-card">
+    <div class="table-header">📋 Submitted Reports</div>
+    {% if reports %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Asset</th>
+                <th>Type</th>
+                <th>Message</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for report in reports %}
+            <tr>
+                <td>{{ report.created_at.strftime('%Y-%m-%d') }}</td>
+                <td>{{ report.asset.asset_name }}</td>
+                <td>{{ report.report_type }}</td>
+                <td>{{ report.message[:50] }}...</td>
+                <td>{{ report.status }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="padding:1.5rem;color:var(--text-muted);">No reports submitted.</p>
+    {% endif %}
+</div>
+
+<a href="/logout" class="btn-secondary">Logout</a>
+{% endblock %}

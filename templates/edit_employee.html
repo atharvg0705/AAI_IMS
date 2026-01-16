@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block top_title %}Edit Employee{% endblock %}
+{% block extra_css %}
+<style>
+    .form-card {
+        max-width: 600px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        padding: 2rem;
+        margin: 0 auto;
+    }
+    .form-section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: var(--primary);
+    }
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    label {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 0.35rem;
+        display: block;
+    }
+    input[type="text"],
+    input[type="email"],
+    select {
+        width: 100%;
+        padding: 0.6rem;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        font-size: 0.9rem;
+    }
+    .form-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1 class="page-title">Edit Employee: {{ employee.name }}</h1>
+
+<form method="POST">
+    <div class="form-card">
+        <div class="form-section-title">✏️ Employee Details</div>
+
+        <div class="form-group">
+            <label>Employee ID *</label>
+            <input type="text" name="employee_id" value="{{ employee.employee_id }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" name="name" value="{{ employee.name }}" required>
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" value="{{ employee.email or '' }}">
+        </div>
+
+        <div class="form-group">
+            <label>Mobile</label>
+            <input type="text" name="mobile" value="{{ employee.mobile or '' }}">
+        </div>
+
+        <div class="form-group">
+            <label>Department *</label>
+            <select name="department" required>
+                <option selected>{{ employee.department }}</option>
+                <option>IT</option>
+                <option>Operations</option>
+                <option>Maintenance</option>
+                <option>Finance</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Designation</label>
+            <input type="text" name="designation" value="{{ employee.designation or '' }}">
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">Update Employee</button>
+            <a href="/employees" class="btn-secondary">Cancel</a>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,2080 @@
+2026-01-21 12:43:06,903 - __main__ - INFO - Starting Flask application
+2026-01-21 12:43:06,985 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.5:5000
+2026-01-21 12:43:06,986 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-21 12:43:06,988 - werkzeug - INFO -  * Restarting with stat
+2026-01-21 12:43:08,040 - __main__ - INFO - Starting Flask application
+2026-01-21 12:43:08,101 - werkzeug - WARNING -  * Debugger is active!
+2026-01-21 12:43:08,106 - werkzeug - INFO -  * Debugger PIN: 712-282-581
+2026-01-21 12:43:20,248 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:20] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:43:20,318 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:20] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:43:20,451 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:20] "GET /static/aai2.png HTTP/1.1" 200 -
+2026-01-21 12:43:21,054 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:21] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-01-21 12:43:21,122 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:21] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:43:21,138 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:21] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:43:28,231 - __main__ - INFO - User admin logged in successfully
+2026-01-21 12:43:28,235 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,354 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,449 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,463 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,498 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,505 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,523 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,577 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,585 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,602 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,637 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,645 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,663 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,700 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,710 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,735 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,783 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,795 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,816 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,855 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,866 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,882 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,912 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,920 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,933 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,972 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:28,982 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:28,999 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:28] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:29,039 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:29,050 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:29] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,136 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,146 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,157 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,196 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,205 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,219 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,262 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,270 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,284 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,314 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,325 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,341 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,419 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,440 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,512 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,654 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,683 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,738 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,820 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,828 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,845 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,900 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,919 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,932 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,960 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:30,966 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:30,980 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:30] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:31,010 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:43:31,022 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:31] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:43:31,035 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:43:31] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:43:52,787 - __main__ - INFO - Starting Flask application
+2026-01-21 12:43:52,857 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.20.10.5:5000
+2026-01-21 12:43:52,858 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2026-01-21 12:43:52,861 - werkzeug - INFO -  * Restarting with stat
+2026-01-21 12:43:53,701 - __main__ - INFO - Starting Flask application
+2026-01-21 12:43:53,732 - werkzeug - WARNING -  * Debugger is active!
+2026-01-21 12:43:53,734 - werkzeug - INFO -  * Debugger PIN: 712-282-581
+2026-01-21 12:44:01,484 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:01] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:44:01,621 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:01] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:44:01,801 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:01] "[36mGET /static/aai2.png HTTP/1.1[0m" 304 -
+2026-01-21 12:44:02,014 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:02] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-01-21 12:44:02,110 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:02] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:44:02,119 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:02] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:44:03,294 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:03] "[32mGET /assets HTTP/1.1[0m" 302 -
+2026-01-21 12:44:03,317 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:03] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:44:03,397 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:03] "[36mGET /static/aai2.png HTTP/1.1[0m" 304 -
+2026-01-21 12:44:03,509 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:03] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-01-21 12:44:03,519 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:03] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:44:03,530 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:03] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:44:04,666 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:04] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:44:04,701 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:04] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:44:04,739 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:04] "[36mGET /static/aai2.png HTTP/1.1[0m" 304 -
+2026-01-21 12:44:04,806 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:04] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-01-21 12:44:04,816 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:04] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:44:04,825 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:04] "GET /login HTTP/1.1" 200 -
+2026-01-21 12:44:18,819 - __main__ - INFO - User admin logged in successfully
+2026-01-21 12:44:18,822 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:18] "[32mPOST /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:18,939 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:18,951 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:18] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:18,967 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:18] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:18,994 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,001 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,016 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,051 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,061 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,074 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,108 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,120 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,137 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,175 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,182 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,197 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,227 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,240 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,255 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,291 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,301 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,313 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,344 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,355 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,366 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,403 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,413 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,443 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:19,490 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:19,502 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:19] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,591 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,599 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,611 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,650 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,660 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,674 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,710 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,718 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,731 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,762 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,770 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,785 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,815 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,823 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,834 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,859 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,870 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,882 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,919 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,925 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,934 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,968 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:20,976 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:20,994 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:20] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,020 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,027 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,040 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,068 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,076 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,091 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,513 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,535 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,547 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,561 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,593 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,606 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,619 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,652 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,663 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,684 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,719 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,727 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,744 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,777 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,787 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,798 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,865 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:21,890 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:21,935 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:21] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:22,024 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:22,049 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:22] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:22,094 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:22] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:22,153 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:22,168 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:22] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:22,189 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:22] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:22,219 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:22,225 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:22] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:22,236 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:22] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:22,261 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:22,270 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:22] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,118 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,129 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,144 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,183 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,194 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,208 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,246 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,256 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,272 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,312 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,318 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,332 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,368 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,376 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,389 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,420 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,429 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,443 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,474 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,483 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,497 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,535 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,544 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,559 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,590 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,603 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,620 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,659 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:23,668 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:23,687 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:23] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,724 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /favicon.ico HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,738 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET / HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,765 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:24,776 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,793 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,830 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:24,840 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,851 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,882 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:24,890 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,906 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,936 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:24,948 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,966 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:24] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:24,994 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:25,006 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,019 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,052 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:25,063 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,081 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,116 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:25,126 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,139 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,169 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:25,181 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,201 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,232 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:25,247 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,268 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /login HTTP/1.1[0m" 302 -
+2026-01-21 12:44:25,299 - __main__ - ERROR - Dashboard error: admin_dashboard.html
+Traceback (most recent call last):
+  File "D:\Users\Atharv Gunjal\Downloads\aai-inventory\app.py", line 299, in admin_dashboard
+    return render_template('admin_dashboard.html',
+                         total_assets=total_assets,
+    ...<5 lines>...
+                         asset_types=asset_types,
+                         asset_status=asset_status)
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1087, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "C:\Users\Atharv Gunjal\AppData\Roaming\Python\Python313\site-packages\jinja2\loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Atharv Gunjal\AppData\Local\Programs\Python\Python313\Lib\site-packages\flask\templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: admin_dashboard.html
+2026-01-21 12:44:25,307 - werkzeug - INFO - 172.20.10.5 - - [21/Jan/2026 12:44:25] "[32mGET /admin/dashboard HTTP/1.1[0m" 302 -
+2026-01-21 12:49:38,374 - werkzeug - INFO -  * Detected change in 'D:\\Users\\Atharv Gunjal\\Downloads\\aai-inventory\\app.py', reloading
+2026-01-21 12:49:38,555 - werkzeug - INFO -  * Restarting with stat
+2026-01-21 12:56:20,365 - werkzeug - INFO -  * Restarting with stat

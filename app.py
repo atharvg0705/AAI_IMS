@@ -17,7 +17,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
-    role = db.Column(db.String(20), nullable=False)  # 'admin' or 'employee'
+    role = db.Column(db.String(20), nullable=False)
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=True)
 
 
@@ -37,6 +37,8 @@ class Employee(db.Model):
 
 class Asset(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    
+    # Basic Information
     asset_name = db.Column(db.String(120), nullable=False)
     serial_number = db.Column(db.String(120), nullable=False, unique=True)
     asset_tag = db.Column(db.String(120))
@@ -44,13 +46,62 @@ class Asset(db.Model):
     location = db.Column(db.String(120), nullable=False)
     site = db.Column(db.String(120))
     status = db.Column(db.String(50), nullable=False, default='In Store')
+    
+    # Identification
+    barcode = db.Column(db.String(120))
+    service_tag = db.Column(db.String(120))
+    model = db.Column(db.String(120))
+    manufacturer = db.Column(db.String(120))
+    
+    # Status & Impact
+    business_impact = db.Column(db.String(50))
+    department = db.Column(db.String(100))
+    
+    # Technical Specifications
+    os = db.Column(db.String(100))
+    service_pack = db.Column(db.String(50))
+    ram_gb = db.Column(db.String(50))
+    virtual_memory_gb = db.Column(db.String(50))
+    processor_info = db.Column(db.String(200))
+    processor_manufacturer = db.Column(db.String(100))
+    cpu_speed_ghz = db.Column(db.String(50))
+    number_of_cores = db.Column(db.Integer)
+    
+    # Hard Disk Details
+    hdd_model = db.Column(db.String(100))
+    hdd_serial = db.Column(db.String(100))
+    hdd_capacity_gb = db.Column(db.String(50))
+    
+    # Network Details
+    ip_address = db.Column(db.String(50))
+    mac_address = db.Column(db.String(50))
+    nic = db.Column(db.String(100))
+    default_gateway = db.Column(db.String(50))
+    network = db.Column(db.String(100))
+    subnet_mask = db.Column(db.String(50))
+    dhcp_enabled = db.Column(db.Boolean, default=False)
+    dhcp_server = db.Column(db.String(50))
+    
+    # Purchase & Vendor Information
     vendor_name = db.Column(db.String(120))
     purchase_cost = db.Column(db.Float, default=0.0)
+    acquisition_date = db.Column(db.Date)
+    expiry_date = db.Column(db.Date)
     warranty_expiry = db.Column(db.String(20))
+    
+    # Additional Information
+    monitor = db.Column(db.String(200))
+    comments = db.Column(db.Text)
+    
+    # Assignment
     assigned_employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=True)
     assigned_to = db.Column(db.String(120))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
+    # Timestamps
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
     assignments = db.relationship('AssetAssignment', backref='asset', lazy=True)
     reports = db.relationship('AssetReport', backref='asset', lazy=True)
 
@@ -68,12 +119,14 @@ class AssetReport(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     asset_id = db.Column(db.Integer, db.ForeignKey('asset.id'), nullable=False)
     employee_id = db.Column(db.Integer, db.ForeignKey('employee.id'), nullable=False)
-    report_type = db.Column(db.String(50))  # 'issue', 'maintenance', 'comment'
+    report_type = db.Column(db.String(50))
     message = db.Column(db.Text, nullable=False)
-    status = db.Column(db.String(20), default='pending')  # 'pending', 'resolved'
+    status = db.Column(db.String(20), default='pending')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     
     reporter = db.relationship('Employee', backref='reports')
+
+
 
 
 # ===================== AUTH DECORATORS =====================
@@ -156,36 +209,6 @@ def login():
     
     return render_template('login.html')
 
-@app.route('/reports')
-@login_required
-@admin_required
-def admin_reports():
-    # Get all reports with asset and employee info
-    reports = (
-        db.session.query(AssetReport, Asset, Employee)
-        .join(Asset, Asset.id == AssetReport.asset_id)
-        .join(Employee, Employee.id == AssetReport.employee_id)
-        .order_by(AssetReport.created_at.desc())
-        .all()
-    )
-    
-    # Filter by status if requested
-    status_filter = request.args.get('status', '')
-    if status_filter:
-        reports = [r for r in reports if r[0].status == status_filter]
-    
-    return render_template('admin_reports.html', reports=reports, status_filter=status_filter)
-
-
-@app.route('/resolve-report/<int:report_id>', methods=['POST'])
-@login_required
-@admin_required
-def resolve_report(report_id):
-    report = AssetReport.query.get_or_404(report_id)
-    report.status = 'resolved'
-    db.session.commit()
-    flash('Report marked as resolved!', 'success')
-    return redirect(url_for('admin_reports'))
 
 @app.route('/logout')
 def logout():
@@ -245,41 +268,111 @@ def add_asset():
     employees = Employee.query.order_by(Employee.name).all()
     
     if request.method == 'POST':
-        assigned_name = request.form.get('assigned_to') or None
-        emp = get_employee_by_name(assigned_name)
-        assigned_id = emp.id if emp else None
-        
-        asset = Asset(
-            asset_name=request.form['asset_name'],
-            serial_number=request.form['serial_number'],
-            asset_tag=request.form.get('asset_tag') or None,
-            category=request.form['category'],
-            location=request.form['location'],
-            site=request.form.get('site') or None,
-            status=request.form['status'],
-            vendor_name=request.form.get('vendor_name') or None,
-            purchase_cost=float(request.form.get('purchase_cost') or 0),
-            warranty_expiry=request.form.get('warranty_expiry') or None,
-            assigned_employee_id=assigned_id,
-            assigned_to=assigned_name
-        )
-        
-        db.session.add(asset)
-        db.session.commit()
-        
-        if assigned_id:
-            assignment = AssetAssignment(
-                asset_id=asset.id,
-                employee_id=assigned_id,
-                notes=f"Asset assigned to {assigned_name}"
+        try:
+            # Get assigned employee
+            assigned_name = request.form.get('assigned_to') or None
+            emp = get_employee_by_name(assigned_name)
+            assigned_id = emp.id if emp else None
+            
+            # Parse dates
+            acq_date = None
+            if request.form.get('acquisition_date'):
+                try:
+                    acq_date = datetime.strptime(request.form.get('acquisition_date'), '%Y-%m-%d').date()
+                except:
+                    pass
+            
+            exp_date = None
+            if request.form.get('expiry_date'):
+                try:
+                    exp_date = datetime.strptime(request.form.get('expiry_date'), '%Y-%m-%d').date()
+                except:
+                    pass
+            
+            # Create asset with all fields
+            asset = Asset(
+                # Basic Information
+                asset_name=request.form['asset_name'],
+                serial_number=request.form['serial_number'],
+                asset_tag=request.form.get('asset_tag') or None,
+                category=request.form['category'],
+                location=request.form['location'],
+                site=request.form.get('site') or None,
+                status=request.form['status'],
+                
+                # Identification
+                barcode=request.form.get('barcode') or None,
+                service_tag=request.form.get('service_tag') or None,
+                model=request.form.get('model') or None,
+                manufacturer=request.form.get('manufacturer') or None,
+                
+                # Status & Impact
+                business_impact=request.form.get('business_impact') or None,
+                department=request.form.get('department') or None,
+                
+                # Technical Specifications
+                os=request.form.get('os') or None,
+                service_pack=request.form.get('service_pack') or None,
+                ram_gb=request.form.get('ram_gb') or None,
+                virtual_memory_gb=request.form.get('virtual_memory_gb') or None,
+                processor_info=request.form.get('processor_info') or None,
+                processor_manufacturer=request.form.get('processor_manufacturer') or None,
+                cpu_speed_ghz=request.form.get('cpu_speed_ghz') or None,
+                number_of_cores=int(request.form.get('number_of_cores')) if request.form.get('number_of_cores') else None,
+                
+                # Hard Disk Details
+                hdd_model=request.form.get('hdd_model') or None,
+                hdd_serial=request.form.get('hdd_serial') or None,
+                hdd_capacity_gb=request.form.get('hdd_capacity_gb') or None,
+                
+                # Network Details
+                ip_address=request.form.get('ip_address') or None,
+                mac_address=request.form.get('mac_address') or None,
+                nic=request.form.get('nic') or None,
+                default_gateway=request.form.get('default_gateway') or None,
+                network=request.form.get('network') or None,
+                subnet_mask=request.form.get('subnet_mask') or None,
+                dhcp_enabled=bool(int(request.form.get('dhcp_enabled', 0))),
+                dhcp_server=request.form.get('dhcp_server') or None,
+                
+                # Purchase & Vendor Information
+                vendor_name=request.form.get('vendor_name') or None,
+                purchase_cost=float(request.form.get('purchase_cost') or 0),
+                acquisition_date=acq_date,
+                expiry_date=exp_date,
+                warranty_expiry=request.form.get('warranty_expiry') or None,
+                
+                # Additional Information
+                monitor=request.form.get('monitor') or None,
+                comments=request.form.get('comments') or None,
+                
+                # Assignment
+                assigned_employee_id=assigned_id,
+                assigned_to=assigned_name
             )
-            db.session.add(assignment)
+            
+            db.session.add(asset)
             db.session.commit()
-        
-        flash('Asset added successfully!', 'success')
-        return redirect(url_for('list_assets'))
+            
+            # Create assignment record if assigned
+            if assigned_id:
+                assignment = AssetAssignment(
+                    asset_id=asset.id,
+                    employee_id=assigned_id,
+                    notes=f"Asset assigned to {assigned_name}"
+                )
+                db.session.add(assignment)
+                db.session.commit()
+            
+            flash('Asset added successfully with all details!', 'success')
+            return redirect(url_for('list_assets'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error adding asset: {str(e)}', 'danger')
     
     return render_template('add_asset.html', employees=employees)
+
 
 
 @app.route('/edit-asset/<int:asset_id>', methods=['GET', 'POST'])
@@ -290,38 +383,108 @@ def edit_asset(asset_id):
     employees = Employee.query.order_by(Employee.name).all()
     
     if request.method == 'POST':
-        assigned_name = request.form.get('assigned_to') or None
-        emp = get_employee_by_name(assigned_name)
-        assigned_id = emp.id if emp else None
-        
-        asset.asset_name = request.form['asset_name']
-        asset.serial_number = request.form['serial_number']
-        asset.asset_tag = request.form.get('asset_tag') or None
-        asset.category = request.form['category']
-        asset.location = request.form['location']
-        asset.site = request.form.get('site') or None
-        asset.status = request.form['status']
-        asset.vendor_name = request.form.get('vendor_name') or None
-        asset.purchase_cost = float(request.form.get('purchase_cost') or 0)
-        asset.warranty_expiry = request.form.get('warranty_expiry') or None
-        asset.assigned_employee_id = assigned_id
-        asset.assigned_to = assigned_name
-        
-        db.session.commit()
-        
-        if assigned_id:
-            assignment = AssetAssignment(
-                asset_id=asset.id,
-                employee_id=assigned_id,
-                notes="Asset re-assigned"
-            )
-            db.session.add(assignment)
+        try:
+            # Get assigned employee
+            assigned_name = request.form.get('assigned_to') or None
+            emp = get_employee_by_name(assigned_name)
+            assigned_id = emp.id if emp else None
+            
+            # Parse dates
+            acq_date = None
+            if request.form.get('acquisition_date'):
+                try:
+                    acq_date = datetime.strptime(request.form.get('acquisition_date'), '%Y-%m-%d').date()
+                except:
+                    pass
+            
+            exp_date = None
+            if request.form.get('expiry_date'):
+                try:
+                    exp_date = datetime.strptime(request.form.get('expiry_date'), '%Y-%m-%d').date()
+                except:
+                    pass
+            
+            # Update all fields
+            asset.asset_name = request.form['asset_name']
+            asset.serial_number = request.form['serial_number']
+            asset.asset_tag = request.form.get('asset_tag') or None
+            asset.category = request.form['category']
+            asset.location = request.form['location']
+            asset.site = request.form.get('site') or None
+            asset.status = request.form['status']
+            
+            # Identification
+            asset.barcode = request.form.get('barcode') or None
+            asset.service_tag = request.form.get('service_tag') or None
+            asset.model = request.form.get('model') or None
+            asset.manufacturer = request.form.get('manufacturer') or None
+            
+            # Status & Impact
+            asset.business_impact = request.form.get('business_impact') or None
+            asset.department = request.form.get('department') or None
+            
+            # Technical Specifications
+            asset.os = request.form.get('os') or None
+            asset.service_pack = request.form.get('service_pack') or None
+            asset.ram_gb = request.form.get('ram_gb') or None
+            asset.virtual_memory_gb = request.form.get('virtual_memory_gb') or None
+            asset.processor_info = request.form.get('processor_info') or None
+            asset.processor_manufacturer = request.form.get('processor_manufacturer') or None
+            asset.cpu_speed_ghz = request.form.get('cpu_speed_ghz') or None
+            asset.number_of_cores = int(request.form.get('number_of_cores')) if request.form.get('number_of_cores') else None
+            
+            # Hard Disk Details
+            asset.hdd_model = request.form.get('hdd_model') or None
+            asset.hdd_serial = request.form.get('hdd_serial') or None
+            asset.hdd_capacity_gb = request.form.get('hdd_capacity_gb') or None
+            
+            # Network Details
+            asset.ip_address = request.form.get('ip_address') or None
+            asset.mac_address = request.form.get('mac_address') or None
+            asset.nic = request.form.get('nic') or None
+            asset.default_gateway = request.form.get('default_gateway') or None
+            asset.network = request.form.get('network') or None
+            asset.subnet_mask = request.form.get('subnet_mask') or None
+            asset.dhcp_enabled = bool(int(request.form.get('dhcp_enabled', 0)))
+            asset.dhcp_server = request.form.get('dhcp_server') or None
+            
+            # Purchase & Vendor Information
+            asset.vendor_name = request.form.get('vendor_name') or None
+            asset.purchase_cost = float(request.form.get('purchase_cost') or 0)
+            asset.acquisition_date = acq_date
+            asset.expiry_date = exp_date
+            asset.warranty_expiry = request.form.get('warranty_expiry') or None
+            
+            # Additional Information
+            asset.monitor = request.form.get('monitor') or None
+            asset.comments = request.form.get('comments') or None
+            
+            # Assignment
+            asset.assigned_employee_id = assigned_id
+            asset.assigned_to = assigned_name
+            asset.updated_at = datetime.utcnow()
+            
             db.session.commit()
-        
-        flash('Asset updated!', 'success')
-        return redirect(url_for('list_assets'))
+            
+            # Create assignment record if changed
+            if assigned_id:
+                assignment = AssetAssignment(
+                    asset_id=asset.id,
+                    employee_id=assigned_id,
+                    notes="Asset re-assigned"
+                )
+                db.session.add(assignment)
+                db.session.commit()
+            
+            flash('Asset updated successfully!', 'success')
+            return redirect(url_for('list_assets'))
+            
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error updating asset: {str(e)}', 'danger')
     
     return render_template('edit_asset.html', asset=asset, employees=employees)
+
 
 
 @app.route('/delete-asset/<int:asset_id>', methods=['POST'])
@@ -436,6 +599,37 @@ def tracking():
         .all()
     )
     return render_template('tracking.html', assignments=assignments)
+
+@app.route('/reports')
+@login_required
+@admin_required
+def admin_reports():
+    # Get all reports with asset and employee info
+    reports = (
+        db.session.query(AssetReport, Asset, Employee)
+        .join(Asset, Asset.id == AssetReport.asset_id)
+        .join(Employee, Employee.id == AssetReport.employee_id)
+        .order_by(AssetReport.created_at.desc())
+        .all()
+    )
+    
+    # Filter by status if requested
+    status_filter = request.args.get('status', '')
+    if status_filter:
+        reports = [r for r in reports if r[0].status == status_filter]
+    
+    return render_template('admin_reports.html', reports=reports, status_filter=status_filter)
+
+
+@app.route('/resolve-report/<int:report_id>', methods=['POST'])
+@login_required
+@admin_required
+def resolve_report(report_id):
+    report = AssetReport.query.get_or_404(report_id)
+    report.status = 'resolved'
+    db.session.commit()
+    flash('Report marked as resolved!', 'success')
+    return redirect(url_for('admin_reports'))
 
 
 # ===================== EMPLOYEE ROUTES =====================

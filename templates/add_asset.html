@@ -1,123 +1,405 @@
 {% extends 'base.html' %}
-{% block top_title %}Add New Asset{% endblock %}
-{% block extra_css %}
-<style>
-    .form-card {
-        max-width: 900px;
-        background: var(--card-bg);
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        padding: 1.5rem 1.75rem 1.25rem;
-    }
-    .form-section-title {
-        font-size: 1rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        color: var(--primary);
-    }
-    .form-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-        gap: 1rem 1.5rem;
-        margin-bottom: 1.2rem;
-    }
-    label {
-        font-size: 0.8rem;
-        color: var(--text-muted);
-        margin-bottom: 0.25rem;
-        display: block;
-    }
-    input[type="text"],
-    input[type="number"],
-    input[type="date"],
-    select {
-        width: 100%;
-        padding: 0.55rem 0.6rem;
-        border-radius: 6px;
-        border: 1px solid var(--border);
-        font-size: 0.9rem;
-    }
-    .form-actions {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-    }
-</style>
-{% endblock %}
+
 {% block content %}
-<h1 class="page-title">Add New Asset</h1>
-
-<form method="POST">
-    <div class="form-card">
-        <div class="form-section-title">➕ Asset Details</div>
-
-        <div class="form-grid">
-            <div>
-                <label>Asset Name *</label>
-                <input type="text" name="asset_name" required>
+<div class="container">
+    <h1>Add New Asset</h1>
+    
+    <form method="POST" class="asset-form">
+        <!-- Basic Information -->
+        <div class="form-section">
+            <h3>📋 Basic Information</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Asset Name *</label>
+                    <input type="text" name="asset_name" required class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select name="category" required class="form-control" id="categorySelect">
+                        <option value="">-- Select --</option>
+                        <option value="Workstation">Workstation</option>
+                        <option value="Laptop">Laptop</option>
+                        <option value="Server">Server</option>
+                        <option value="Printer">Printer</option>
+                        <option value="Scanner">Scanner</option>
+                        <option value="Network Device">Network Device</option>
+                        <option value="Mobile">Mobile</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
             </div>
-            <div>
-                <label>Serial Number *</label>
-                <input type="text" name="serial_number" required>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Serial Number *</label>
+                    <input type="text" name="serial_number" required class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Asset Tag</label>
+                    <input type="text" name="asset_tag" class="form-control">
+                </div>
             </div>
-            <div>
-                <label>Category *</label>
-                <select name="category" required>
-                    <option value="">Select</option>
-                    <option>Server</option>
-                    <option>Laptop</option>
-                    <option>Network Equipment</option>
-                    <option>Power Supply</option>
-                    <option>Security</option>
-                    <option>Printer</option>
-                </select>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Model</label>
+                    <input type="text" name="model" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Manufacturer</label>
+                    <input type="text" name="manufacturer" class="form-control">
+                </div>
             </div>
-            <div>
-                <label>Location *</label>
-                <input type="text" name="location" required>
-            </div>
-            <div>
-                <label>Assign to Employee</label>
-                <select name="assigned_to">
-                    <option value="">Unassigned</option>
-                    {% for employee in employees %}
-                    <option value="{{ employee.name }}">{{ employee.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div>
-                <label>Status *</label>
-                <select name="status" required>
-                    <option>In Store</option>
-                    <option>Deployed</option>
-                    <option>In Maintenance</option>
-                </select>
-            </div>
-            <div>
-                <label>Asset Tag</label>
-                <input type="text" name="asset_tag">
-            </div>
-            <div>
-                <label>Vendor Name</label>
-                <input type="text" name="vendor_name">
-            </div>
-            <div>
-                <label>Purchase Cost</label>
-                <input type="number" step="0.01" name="purchase_cost">
-            </div>
-            <div>
-                <label>Warranty Expiry</label>
-                <input type="date" name="warranty_expiry">
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Barcode</label>
+                    <input type="text" name="barcode" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Service Tag</label>
+                    <input type="text" name="service_tag" class="form-control">
+                </div>
             </div>
         </div>
-
+        
+        <!-- Location & Status -->
+        <div class="form-section">
+            <h3>📍 Location & Status</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Location *</label>
+                    <input type="text" name="location" required class="form-control" placeholder="e.g., Office Floor 2">
+                </div>
+                
+                <div class="form-group">
+                    <label>Site</label>
+                    <input type="text" name="site" class="form-control" placeholder="e.g., Delhi Office">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Status *</label>
+                    <select name="status" required class="form-control">
+                        <option value="In Store">In Store</option>
+                        <option value="Deployed">Deployed</option>
+                        <option value="In Maintenance">In Maintenance</option>
+                        <option value="Retired">Retired</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Business Impact</label>
+                    <select name="business_impact" class="form-control">
+                        <option value="">-- Select --</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Department</label>
+                    <input type="text" name="department" class="form-control" placeholder="e.g., IT, HR, Finance">
+                </div>
+                
+                <div class="form-group">
+                    <label>Assigned To</label>
+                    <input type="text" name="assigned_to" class="form-control" list="employees">
+                    <datalist id="employees">
+                        {% for emp in employees %}
+                        <option value="{{ emp.name }}">
+                        {% endfor %}
+                    </datalist>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technical Specifications (Show only for Workstation/Laptop) -->
+        <div class="form-section" id="techSpecs" style="display:none;">
+            <h3>💻 Technical Specifications</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Operating System</label>
+                    <input type="text" name="os" class="form-control" placeholder="e.g., Windows 11 Pro">
+                </div>
+                
+                <div class="form-group">
+                    <label>Service Pack</label>
+                    <input type="text" name="service_pack" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>RAM (GB)</label>
+                    <input type="text" name="ram_gb" class="form-control" placeholder="e.g., 16">
+                </div>
+                
+                <div class="form-group">
+                    <label>Virtual Memory (GB)</label>
+                    <input type="text" name="virtual_memory_gb" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Processor Info</label>
+                    <input type="text" name="processor_info" class="form-control" placeholder="e.g., Intel Core i7-11700">
+                </div>
+                
+                <div class="form-group">
+                    <label>Processor Manufacturer</label>
+                    <input type="text" name="processor_manufacturer" class="form-control" placeholder="e.g., Intel">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>CPU Speed (GHz)</label>
+                    <input type="text" name="cpu_speed_ghz" class="form-control" placeholder="e.g., 2.5">
+                </div>
+                
+                <div class="form-group">
+                    <label>Number of Cores</label>
+                    <input type="number" name="number_of_cores" class="form-control" placeholder="e.g., 8">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Monitor</label>
+                    <input type="text" name="monitor" class="form-control" placeholder="e.g., Dell 24-inch LED">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hard Disk Details -->
+        <div class="form-section" id="hddSpecs" style="display:none;">
+            <h3>💾 Hard Disk Details</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>HDD Model</label>
+                    <input type="text" name="hdd_model" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>HDD Serial Number</label>
+                    <input type="text" name="hdd_serial" class="form-control">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>HDD Capacity (GB)</label>
+                    <input type="text" name="hdd_capacity_gb" class="form-control" placeholder="e.g., 512">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Network Details -->
+        <div class="form-section" id="networkSpecs" style="display:none;">
+            <h3>🌐 Network Details</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>IP Address</label>
+                    <input type="text" name="ip_address" class="form-control" placeholder="e.g., 192.168.1.100">
+                </div>
+                
+                <div class="form-group">
+                    <label>MAC Address</label>
+                    <input type="text" name="mac_address" class="form-control" placeholder="e.g., 00:1A:2B:3C:4D:5E">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>NIC</label>
+                    <input type="text" name="nic" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Default Gateway</label>
+                    <input type="text" name="default_gateway" class="form-control" placeholder="e.g., 192.168.1.1">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Network</label>
+                    <input type="text" name="network" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Subnet Mask</label>
+                    <input type="text" name="subnet_mask" class="form-control" placeholder="e.g., 255.255.255.0">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>DHCP Enabled</label>
+                    <select name="dhcp_enabled" class="form-control">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>DHCP Server</label>
+                    <input type="text" name="dhcp_server" class="form-control">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Purchase Information -->
+        <div class="form-section">
+            <h3>💰 Purchase & Vendor Information</h3>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Vendor Name</label>
+                    <input type="text" name="vendor_name" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Purchase Cost (₹)</label>
+                    <input type="number" step="0.01" name="purchase_cost" class="form-control" placeholder="0.00">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Acquisition Date</label>
+                    <input type="date" name="acquisition_date" class="form-control">
+                </div>
+                
+                <div class="form-group">
+                    <label>Warranty Expiry</label>
+                    <input type="text" name="warranty_expiry" class="form-control" placeholder="e.g., 31-12-2026">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="date" name="expiry_date" class="form-control">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Information -->
+        <div class="form-section">
+            <h3>📝 Additional Information</h3>
+            
+            <div class="form-group">
+                <label>Comments</label>
+                <textarea name="comments" class="form-control" rows="4" placeholder="Any additional notes..."></textarea>
+            </div>
+        </div>
+        
         <div class="form-actions">
-            <button type="submit" class="btn-primary">Save Asset</button>
-            <a href="/assets" class="btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Add Asset</button>
+            <a href="{{ url_for('list_assets') }}" class="btn btn-secondary">Cancel</a>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+
+<script>
+// Show/hide technical specs based on category
+document.getElementById('categorySelect').addEventListener('change', function() {
+    const category = this.value;
+    const techSpecs = document.getElementById('techSpecs');
+    const hddSpecs = document.getElementById('hddSpecs');
+    const networkSpecs = document.getElementById('networkSpecs');
+    
+    if (category === 'Workstation' || category === 'Laptop' || category === 'Server') {
+        techSpecs.style.display = 'block';
+        hddSpecs.style.display = 'block';
+        networkSpecs.style.display = 'block';
+    } else {
+        techSpecs.style.display = 'none';
+        hddSpecs.style.display = 'none';
+        networkSpecs.style.display = 'none';
+    }
+});
+</script>
+
+<style>
+.asset-form {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.form-section {
+    background: white;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+.form-section h3 {
+    margin-bottom: 1rem;
+    color: #1f2937;
+    font-size: 1.25rem;
+}
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    margin-bottom: 0.25rem;
+    font-weight: 500;
+    color: #374151;
+}
+.form-control {
+    padding: 0.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+.form-control:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+.btn-secondary {
+    background: #6b7280;
+    color: white;
+}
+</style>
 {% endblock %}

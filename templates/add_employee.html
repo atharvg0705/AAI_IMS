@@ -1,20 +1,33 @@
 {% extends 'base.html' %}
-{% block top_title %}Add Employee{% endblock %}
+{% block top_title %}Add Asset{% endblock %}
 {% block extra_css %}
 <style>
+    .form-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
     .form-card {
-        max-width: 600px;
         background: var(--card-bg);
         border-radius: 12px;
         border: 1px solid var(--border);
         padding: 2rem;
-        margin: 0 auto;
+        margin-bottom: 1.5rem;
     }
-    .form-section-title {
-        font-size: 1rem;
+    .section-title {
+        font-size: 1.1rem;
         font-weight: 600;
         margin-bottom: 1.5rem;
         color: var(--primary);
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 0.5rem;
+    }
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    .form-group-full {
+        grid-column: span 2;
     }
     .form-group {
         margin-bottom: 1rem;
@@ -24,92 +37,349 @@
         color: var(--text-muted);
         margin-bottom: 0.35rem;
         display: block;
+        font-weight: 500;
+    }
+    label .required {
+        color: #ef4444;
     }
     input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    select {
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
         width: 100%;
-        padding: 0.6rem;
+        padding: 0.65rem;
         border-radius: 6px;
         border: 1px solid var(--border);
         font-size: 0.9rem;
+        background: var(--card-bg);
+    }
+    textarea {
+        min-height: 80px;
+        resize: vertical;
     }
     .form-actions {
         display: flex;
-        gap: 0.5rem;
-        margin-top: 1.5rem;
+        gap: 0.75rem;
+        margin-top: 2rem;
+        justify-content: flex-end;
     }
-    .help-text {
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        margin-top: 0.25rem;
+    @media (max-width: 768px) {
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+        .form-group-full {
+            grid-column: span 1;
+        }
     }
 </style>
 {% endblock %}
 {% block content %}
-<h1 class="page-title">Add Employee</h1>
+<h1 class="page-title">➕ Add New Asset</h1>
+<p class="page-subtitle">Fill in asset details based on asset type</p>
 
-<form method="POST">
+<form method="POST" class="form-container">
+    
+    <!-- Basic Information -->
     <div class="form-card">
-        <div class="form-section-title">➕ Employee Details</div>
-
-        <div class="form-group">
-            <label>Employee ID *</label>
-            <input type="text" name="employee_id" placeholder="e.g., AAI-EMP-2024-001" required>
-        </div>
-
-        <div class="form-group">
-            <label>Full Name *</label>
-            <input type="text" name="name" required>
-        </div>
-
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" name="email">
-        </div>
-
-        <div class="form-group">
-            <label>Mobile</label>
-            <input type="text" name="mobile">
-        </div>
-
-        <div class="form-group">
-            <label>Department *</label>
-            <select name="department" required>
-                <option>IT</option>
-                <option>Operations</option>
-                <option>Maintenance</option>
-                <option>Finance</option>
-                <option>Administration</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Designation</label>
-            <input type="text" name="designation">
-        </div>
-
-        <hr style="margin: 1.5rem 0; border: 1px solid var(--border);">
-
-        <div class="form-section-title">🔐 Login Credentials</div>
-
-        <div class="form-group">
-            <label>Username (for login) *</label>
-            <input type="text" name="username" placeholder="e.g., john.doe or EMP001" required>
-            <div class="help-text">Employee will use this to login</div>
-        </div>
-
-        <div class="form-group">
-            <label>Password *</label>
-            <input type="password" name="password" value="password123" required>
-            <div class="help-text">Default: password123 (employee can change later)</div>
-        </div>
-
-        <div class="form-actions">
-            <button type="submit" class="btn-primary">Add Employee</button>
-            <a href="/employees" class="btn-secondary">Cancel</a>
+        <div class="section-title">📦 Basic Information</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Asset Name <span class="required">*</span></label>
+                <input type="text" name="asset_name" placeholder="e.g., HP Scanner 01" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Asset Type <span class="required">*</span></label>
+                <select name="asset_type" id="assetType" required onchange="toggleFields()">
+                    <option value="">-- Select Type --</option>
+                    <option value="Workstation">Workstation</option>
+                    <option value="Laptop">Laptop</option>
+                    <option value="Scanner">Scanner</option>
+                    <option value="Printer">Printer</option>
+                    <option value="Server">Server</option>
+                    <option value="Network Device">Network Device</option>
+                    <option value="Mobile Device">Mobile Device</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Model</label>
+                <input type="text" name="model" placeholder="e.g., HP LaserJet Pro">
+            </div>
+            
+            <div class="form-group">
+                <label>Manufacturer</label>
+                <input type="text" name="manufacturer" placeholder="e.g., HP, Dell, Acer">
+            </div>
         </div>
     </div>
+    
+    <!-- Identification -->
+    <div class="form-card">
+        <div class="section-title">🏷️ Identification</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Serial Number <span class="required">*</span></label>
+                <input type="text" name="serial_number" placeholder="Org Serial Number" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Asset Tag</label>
+                <input type="text" name="asset_tag" placeholder="Internal asset tag">
+            </div>
+            
+            <div class="form-group">
+                <label>Barcode</label>
+                <input type="text" name="barcode" placeholder="Barcode number">
+            </div>
+            
+            <div class="form-group">
+                <label>Service Tag</label>
+                <input type="text" name="service_tag" placeholder="Service tag (for workstations)">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Status & Location -->
+    <div class="form-card">
+        <div class="section-title">📍 Status & Location</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Asset State <span class="required">*</span></label>
+                <select name="status" required>
+                    <option value="In Store">In Store</option>
+                    <option value="In Use">In Use</option>
+                    <option value="Under Maintenance">Under Maintenance</option>
+                    <option value="Disposed">Disposed</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Business Impact</label>
+                <select name="business_impact">
+                    <option value="">-- Choose --</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Site</label>
+                <input type="text" name="site" placeholder="e.g., ATS, RHQ">
+            </div>
+            
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="location" placeholder="e.g., ATS 1ST FLOOR">
+            </div>
+            
+            <div class="form-group">
+                <label>Department</label>
+                <input type="text" name="department" placeholder="e.g., IT, Operations">
+            </div>
+            
+            <div class="form-group">
+                <label>Assigned To</label>
+                <select name="assigned_to">
+                    <option value="">-- Not Assigned --</option>
+                    {% for emp in employees %}
+                    <option value="{{ emp.id }}">{{ emp.name }} ({{ emp.employee_id }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Technical Specifications (Show for Workstation/Laptop) -->
+    <div class="form-card" id="techSpecs" style="display:none;">
+        <div class="section-title">💻 Technical Specifications</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Operating System</label>
+                <input type="text" name="os" placeholder="e.g., Windows 10 Pro">
+            </div>
+            
+            <div class="form-group">
+                <label>Service Pack</label>
+                <input type="text" name="service_pack" placeholder="e.g., SP1">
+            </div>
+            
+            <div class="form-group">
+                <label>RAM (GB)</label>
+                <input type="text" name="ram_gb" placeholder="e.g., 8">
+            </div>
+            
+            <div class="form-group">
+                <label>Virtual Memory (GB)</label>
+                <input type="text" name="virtual_memory_gb" placeholder="e.g., 16">
+            </div>
+            
+            <div class="form-group-full">
+                <label>Processor Info</label>
+                <input type="text" name="processor_info" placeholder="Full processor details">
+            </div>
+            
+            <div class="form-group">
+                <label>Processor Manufacturer</label>
+                <input type="text" name="processor_manufacturer" placeholder="e.g., Intel, AMD">
+            </div>
+            
+            <div class="form-group">
+                <label>CPU Speed (GHz)</label>
+                <input type="text" name="cpu_speed_ghz" placeholder="e.g., 2.4">
+            </div>
+            
+            <div class="form-group">
+                <label>Number of Cores</label>
+                <input type="number" name="number_of_cores" placeholder="e.g., 4">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hard Disk -->
+    <div class="form-card" id="hardDisk" style="display:none;">
+        <div class="section-title">💾 Hard Disk Details</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>HDD Model</label>
+                <input type="text" name="hdd_model" placeholder="Hard disk model">
+            </div>
+            
+            <div class="form-group">
+                <label>HDD Serial Number</label>
+                <input type="text" name="hdd_serial" placeholder="Hard disk serial">
+            </div>
+            
+            <div class="form-group">
+                <label>Capacity (GB)</label>
+                <input type="text" name="hdd_capacity_gb" placeholder="e.g., 500">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Network Details -->
+    <div class="form-card" id="networkDetails" style="display:none;">
+        <div class="section-title">🌐 Network Details</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>IP Address</label>
+                <input type="text" name="ip_address" placeholder="e.g., 192.168.1.100">
+            </div>
+            
+            <div class="form-group">
+                <label>MAC Address</label>
+                <input type="text" name="mac_address" placeholder="e.g., 00:1A:2B:3C:4D:5E">
+            </div>
+            
+            <div class="form-group">
+                <label>NIC</label>
+                <input type="text" name="nic" placeholder="Network Interface Card">
+            </div>
+            
+            <div class="form-group">
+                <label>Default Gateway</label>
+                <input type="text" name="default_gateway" placeholder="e.g., 192.168.1.1">
+            </div>
+            
+            <div class="form-group">
+                <label>Network</label>
+                <input type="text" name="network" placeholder="Network name">
+            </div>
+            
+            <div class="form-group">
+                <label>Subnet Mask</label>
+                <input type="text" name="subnet_mask" placeholder="e.g., 255.255.255.0">
+            </div>
+            
+            <div class="form-group">
+                <label>DHCP Enabled</label>
+                <select name="dhcp_enabled">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>DHCP Server</label>
+                <input type="text" name="dhcp_server" placeholder="DHCP server address">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Vendor & Purchase Info -->
+    <div class="form-card">
+        <div class="section-title">🛒 Vendor & Purchase Information</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Vendor Name</label>
+                <input type="text" name="vendor_name" placeholder="e.g., Dell India">
+            </div>
+            
+            <div class="form-group">
+                <label>Purchase Cost ($)</label>
+                <input type="number" name="purchase_cost" step="0.01" placeholder="e.g., 50000">
+            </div>
+            
+            <div class="form-group">
+                <label>Acquisition Date</label>
+                <input type="date" name="acquisition_date">
+            </div>
+            
+            <div class="form-group">
+                <label>Expiry Date</label>
+                <input type="date" name="expiry_date">
+            </div>
+            
+            <div class="form-group">
+                <label>Warranty Expiry Date</label>
+                <input type="date" name="warranty_expiry_date">
+            </div>
+        </div>
+    </div>
+    
+    <!-- Additional Information -->
+    <div class="form-card">
+        <div class="section-title">📝 Additional Information</div>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Monitor</label>
+                <input type="text" name="monitor" placeholder="Monitor details (if applicable)">
+            </div>
+            
+            <div class="form-group-full">
+                <label>Comments</label>
+                <textarea name="comments" placeholder="Any additional notes or comments"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="form-actions">
+        <a href="/assets" class="btn-secondary">Cancel</a>
+        <button type="submit" class="btn-primary">Add Asset</button>
+    </div>
 </form>
+
+<script>
+function toggleFields() {
+    const assetType = document.getElementById('assetType').value;
+    const techSpecs = document.getElementById('techSpecs');
+    const hardDisk = document.getElementById('hardDisk');
+    const networkDetails = document.getElementById('networkDetails');
+    
+    // Show technical specs for computers
+    if (['Workstation', 'Laptop', 'Server'].includes(assetType)) {
+        techSpecs.style.display = 'block';
+        hardDisk.style.display = 'block';
+        networkDetails.style.display = 'block';
+    } else {
+        techSpecs.style.display = 'none';
+        hardDisk.style.display = 'none';
+        networkDetails.style.display = 'none';
+    }
+}
+</script>
 {% endblock %}

@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% block page_name %}Analytics Dashboard{% endblock %}
+
+{% block extra_css %}
+<style>
+.reports-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.reports-header-left h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.2rem 0;
+}
+.reports-header-left p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+.report-tabs {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 0.4rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 4px var(--shadow);
+}
+.tab-buttons {
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+}
+.tab-btn {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.22s;
+    text-decoration: none;
+    background: transparent;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+.tab-btn.active {
+    background: var(--primary);
+    color: #fff;
+}
+.tab-btn:hover:not(.active) {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+.report-filters {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 4px var(--shadow);
+}
+.report-filters form {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.report-filters input,
+.report-filters select {
+    padding: 0.42rem 0.75rem;
+    font-size: 0.82rem;
+    border-radius: 7px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    flex: 1 1 140px;
+    min-width: 0;
+}
+.report-filters button {
+    padding: 0.42rem 1rem;
+    font-size: 0.82rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.22s;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.report-filters button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+.btn-clear {
+    padding: 0.42rem 1rem;
+    font-size: 0.82rem;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.export-section {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+.btn-export {
+    padding: 0.45rem 1.1rem;
+    font-size: 0.82rem;
+    background: #217346;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: all 0.22s;
+    box-shadow: 0 2px 8px rgba(33,115,70,0.25);
+}
+.btn-export:hover {
+    background: #1a5c37;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(33,115,70,0.4);
+}
+.total-value {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+.report-section {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 2px 10px var(--shadow);
+    margin-bottom: 1.5rem;
+}
+.section-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-card);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.record-count {
+    font-size: 0.78rem;
+    font-weight: 600;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+}
+.report-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.report-table th, .report-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+.report-table thead {
+    background: var(--primary);
+}
+.report-table th { color: #ffffff; font-weight: 600; }
+.report-table tbody tr:hover {
+    background: var(--bg-hover, rgba(0,0,0,0.02));
+}
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.22rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+.badge-pending    { background: #fef9c3; color: #854d0e; }
+.badge-resolved   { background: #dcfce7; color: #166534; }
+.badge-deployed   { background: #dbeafe; color: #1e40af; }
+.badge-instore    { background: #e5e7eb; color: #374151; }
+.badge-maintenance{ background: #fee2e2; color: #991b1b; }
+.chip {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.18rem 0.65rem;
+    border-radius: 999px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.value-cell { font-weight: 700; color: var(--text-primary); }
+@media (max-width: 768px) {
+    .report-filters form { flex-direction: column; }
+    .export-section { flex-direction: column; align-items: stretch; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ── HEADER ── -->
+<div class="reports-header">
+    <div class="reports-header-left">
+        <h1>📊 Analytics Dashboard</h1>
+        <p>Generate reports and export inventory analytics</p>
+    </div>
+</div>
+
+<!-- ── REPORT TABS ── -->
+<div class="report-tabs">
+    <div class="tab-buttons">
+        <a href="?report_type=inventory_summary{% if extra_params %}&{{ extra_params }}{% endif %}"
+           class="tab-btn {% if report_type == 'inventory_summary' %}active{% endif %}">
+            📦 Inventory Summary
+        </a>
+        <a href="?report_type=department_assets{% if extra_params %}&{{ extra_params }}{% endif %}"
+           class="tab-btn {% if report_type == 'department_assets' %}active{% endif %}">
+            🏢 Department Assets
+        </a>
+        <a href="?report_type=employee_custody{% if extra_params %}&{{ extra_params }}{% endif %}"
+           class="tab-btn {% if report_type == 'employee_custody' %}active{% endif %}">
+            👥 Employee Custody
+        </a>
+        <a href="?report_type=warranty_expiry{% if extra_params %}&{{ extra_params }}{% endif %}"
+           class="tab-btn {% if report_type == 'warranty_expiry' %}active{% endif %}">
+            ⏰ Warranty Expiry
+        </a>
+        <a href="?report_type=maintenance_backlog{% if extra_params %}&{{ extra_params }}{% endif %}"
+           class="tab-btn {% if report_type == 'maintenance_backlog' %}active{% endif %}">
+            🔧 Maintenance
+        </a>
+        <a href="?report_type=asset_reports{% if extra_params %}&{{ extra_params }}{% endif %}"
+           class="tab-btn {% if report_type == 'asset_reports' %}active{% endif %}">
+            📋 Asset Reports
+        </a>
+        <a href="?report_type=ticket_summary{% if extra_params %}&{{ extra_params }}{% endif %}"
+           class="tab-btn {% if report_type == 'ticket_summary' %}active{% endif %}">
+            🎫 Tickets
+        </a>
+    </div>
+</div>
+
+<!-- ── FILTERS ── -->
+<div class="report-filters">
+    <form method="GET">
+        <input type="hidden" name="report_type" value="{{ report_type }}">
+
+        {% if report_type in ['inventory_summary', 'maintenance_backlog'] %}
+            <select name="category">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                    <option value="{{ cat }}" {% if category == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+        {% elif report_type == 'department_assets' %}
+            <select name="department">
+                <option value="">All Departments</option>
+                {% for dept in departments %}
+                    <option value="{{ dept }}" {% if department == dept %}selected{% endif %}>{{ dept }}</option>
+                {% endfor %}
+            </select>
+        {% elif report_type == 'asset_reports' %}
+            <select name="status_filter">
+                <option value="">All Status</option>
+                <option value="pending"  {% if status_filter == 'pending'  %}selected{% endif %}>Pending</option>
+                <option value="resolved" {% if status_filter == 'resolved' %}selected{% endif %}>Resolved</option>
+            </select>
+        {% endif %}
+
+        {% if report_type in ['warranty_expiry', 'ticket_summary'] %}
+            <input type="date" name="date_from" value="{{ date_from }}">
+            <input type="date" name="date_to"   value="{{ date_to }}">
+        {% endif %}
+
+        <button type="submit">🔄 Refresh</button>
+        <a href="?report_type={{ report_type }}" class="btn-clear">✕ Clear</a>
+    </form>
+</div>
+
+<!-- ── EXPORT + TOTAL VALUE ── -->
+<div class="export-section">
+    <a href="?report_type={{ report_type }}&export=excel{% if extra_params %}&{{ extra_params }}{% endif %}"
+       class="btn-export">📊 Export to Excel</a>
+
+    {% if report_data.total_value and report_data.total_value > 0 %}
+    <span class="total-value">
+        💰 Portfolio Value: ₹{{ "{:,.0f}".format(report_data.total_value) }}
+    </span>
+    {% endif %}
+</div>
+
+<!-- ── REPORT TABLE ── -->
+<div class="report-section">
+    <div class="section-header">
+        <span>{{ report_data.report_title }}</span>
+        <span class="record-count">{{ report_data.rows | length }} record{{ 's' if report_data.rows | length != 1 else '' }}</span>
+    </div>
+
+    {% if report_data.rows %}
+    <table class="report-table">
+        <thead>
+            <tr>
+                {% for header in report_data.headers %}
+                <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in report_data.rows %}
+            <tr>
+                {% for header in report_data.headers %}
+                <td>{{ row[header] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div style="padding: 2.5rem; text-align: center; color: var(--text-secondary);">
+        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">📭</div>
+        <div style="font-weight: 600;">No data matches your filters.</div>
+        <div style="font-size: 0.8rem; margin-top: 0.3rem;">Try clearing the filters or check if data exists.</div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

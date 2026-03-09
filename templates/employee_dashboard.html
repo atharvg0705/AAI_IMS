@@ -1,120 +1,782 @@
 {% extends 'base.html' %}
-{% block top_title %}My Dashboard{% endblock %}
+{% block page_name %}My Dashboard{% endblock %}
 {% block extra_css %}
 <style>
-    .welcome-card {
-        background: linear-gradient(135deg, var(--aai-blue) 0%, #4a90e2 100%);
-        color: #fff;
-        padding: 1.5rem 2rem;
-        border-radius: 12px;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 16px rgba(0,61,130,0.2);
-    }
-    .welcome-title {
-        font-size: 1.5rem;
-        font-weight: 700;
-        margin-bottom: 0.25rem;
-    }
-    .table-card {
-        background: var(--card-bg);
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        overflow: hidden;
-        margin-bottom: 2rem;
-    }
-    .table-header {
-        padding: 1rem 1.25rem;
-        border-bottom: 1px solid var(--border);
-        font-weight: 600;
-        font-size: 1.05rem;
-    }
-    table { width:100%; border-collapse: collapse; font-size:0.85rem; }
-    th,td { padding:0.75rem 1rem; border-bottom:1px solid var(--border); text-align:left; }
-    thead { background:#f9fafb; }
-    .btn-report {
-        background: var(--primary);
-        color: #fff;
-        padding: 0.35rem 0.75rem;
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
+/* ── GLOBAL ── */
+* { box-sizing: border-box; }
+
+/* ── WELCOME HERO ── */
+.welcome-hero {
+    background: linear-gradient(135deg, #0f2460 0%, #1e3a8a 45%, #2563eb 100%);
+    border-radius: 20px;
+    padding: 2.5rem 3rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(30,58,138,0.35);
+}
+.welcome-hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+}
+.welcome-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: 120px;
+    width: 200px; height: 200px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+}
+.hero-content { position: relative; z-index: 2; display: flex; justify-content: space-between; align-items: center; }
+.hero-greeting {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.65);
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+}
+.hero-name {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+.hero-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.hero-badge {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.hero-right {
+    text-align: right;
+}
+.hero-avatar {
+    width: 72px; height: 72px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    border: 3px solid rgba(255,255,255,0.3);
+    margin-left: auto;
+}
+
+/* ── STATS ROW ── */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 12px var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px var(--shadow); }
+.stat-icon-box {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+.stat-icon-box.blue   { background: rgba(59,130,246,0.12); }
+.stat-icon-box.green  { background: rgba(16,185,129,0.12); }
+.stat-icon-box.amber  { background: rgba(245,158,11,0.12); }
+.stat-icon-box.purple { background: rgba(139,92,246,0.12); }
+.stat-value { font-size: 1.7rem; font-weight: 800; color: var(--text-primary); line-height: 1; }
+.stat-label { font-size: 0.78rem; color: var(--text-secondary); font-weight: 500; margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.4px; }
+
+/* ── TAB BAR ── */
+.tab-bar {
+    display: flex;
+    gap: 0;
+    background: var(--bg-secondary);
+    padding: 0.4rem;
+    border-radius: 14px;
+    margin-bottom: 1.75rem;
+    border: 1px solid var(--border-color);
+}
+.tab-btn {
+    flex: 1;
+    padding: 0.8rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.tab-btn.active {
+    background: var(--bg-card);
+    color: #1e3a8a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.tab-btn:hover:not(.active) { color: #1e3a8a; background: rgba(255,255,255,0.5); }
+.tab-count {
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+}
+.tab-btn.active .tab-count { background: #1e3a8a; }
+
+/* ── SECTION HEADER ── */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+.section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.section-count {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+}
+
+/* ── ASSET CARDS GRID ── */
+.assets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+.asset-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.asset-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px var(--shadow); }
+.asset-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+.asset-icon {
+    width: 46px; height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+}
+.asset-name { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+.asset-serial { font-size: 0.8rem; color: var(--text-secondary); font-family: monospace; }
+.asset-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+    margin: 1rem 0;
+}
+.asset-detail-label { font-size: 0.72rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 600; }
+.asset-detail-value { font-size: 0.85rem; color: var(--text-primary); font-weight: 500; margin-top: 0.15rem; }
+.asset-card-footer { padding-top: 1rem; border-top: 1px solid var(--border-color); }
+
+/* ── TICKETS TABLE ── */
+.table-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
+}
+table tbody td {
+    vertical-align: middle;
+    white-space: nowrap;  /* ADD THIS */
+}
+table { width: 100%; border-collapse: collapse; }
+table thead { background: linear-gradient(135deg, #0f2460, #1e3a8a); }
+table thead th {
+    padding: 1rem 1.25rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    font-size: 0.78rem;
+    text-align: left;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s;
+}
+table tbody tr:last-child { border-bottom: none; }
+table tbody tr:hover { background: rgba(59,130,246,0.04); }
+table tbody td {
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    vertical-align: middle;
+}
+.overdue-row { background: rgba(239,68,68,0.05) !important; border-left: 3px solid #ef4444; }
+
+/* ── TICKET NUMBER CHIP ── */
+.ticket-chip {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
+    padding: 0.3rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: monospace;
+    display: inline-block;
+}
+
+/* ── BADGES ── */
+.badge {
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    font-size: 0.73rem;
+    font-weight: 700;
+    display: inline-block;
+    letter-spacing: 0.3px;
+}
+.badge-success   { background:#d1fae5; color:#065f46; }
+.badge-warning   { background:#fef3c7; color:#92400e; }
+.badge-danger    { background:#fee2e2; color:#991b1b; }
+.badge-info      { background:#dbeafe; color:#1e40af; }
+.badge-secondary { background:#f3f4f6; color:#374151; }
+.badge-purple    { background:#ede9fe; color:#5b21b6; }
+
+/* ── BUTTONS ── */
+.btn-primary {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: #fff;
+    padding: 0.65rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(30,58,138,0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(30,58,138,0.4); }
+.btn-report {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+    color: #fff;
+    padding: 0.45rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+.btn-report:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(249,115,22,0.35); }
+.btn-sm {
+    padding: 0.38rem 0.8rem;
+    font-size: 0.78rem;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.2s;
+    font-weight: 600;
+}
+.btn-sm:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(30,58,138,0.3); }
+.btn-delete {
+    padding: 0.38rem 0.8rem;
+    font-size: 0.78rem;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.2s;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-delete:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(239,68,68,0.35); }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+.empty-state-icon { font-size: 3.5rem; margin-bottom: 1rem; opacity: 0.4; }
+.empty-state h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); }
+.empty-state p { font-size: 0.88rem; }
+
+/* ── MODAL ── */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.55);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: var(--bg-card);
+    padding: 0;
+    border-radius: 22px;
+    width: 620px;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    animation: slideUp 0.3s ease;
+}
+@keyframes slideUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.modal-header {
+    background: linear-gradient(135deg, #0f2460, #1e3a8a);
+    padding: 1.75rem 2rem;
+    border-radius: 22px 22px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.modal-header h2 { margin: 0; font-size: 1.25rem; color: #fff; font-weight: 700; }
+.modal-close {
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.25); }
+.modal-body { padding: 2rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.form-group { margin-bottom: 1.4rem; }
+.form-group label {
+    display: block;
+    margin-bottom: 0.55rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition: all 0.25s;
+    font-family: inherit;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+    background: var(--bg-card);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-group small { display: block; margin-top: 0.4rem; color: var(--text-secondary); font-size: 0.78rem; }
+.required { color: #ef4444; }
+.modal-footer {
+    padding: 1.25rem 2rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    background: var(--bg-secondary);
+    border-radius: 0 0 22px 22px;
+}
+.btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: 1.5px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-secondary:hover { background: var(--bg-secondary); color: var(--text-primary); }
+
+@media (max-width: 900px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .assets-grid { grid-template-columns: 1fr; }
+    .hero-content { flex-direction: column; gap: 1rem; text-align: center; }
+    .hero-meta { justify-content: center; }
+    .hero-right { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .modal-content { width: 95%; }
+}
 </style>
 {% endblock %}
+
 {% block content %}
-<div class="welcome-card">
-    <div class="welcome-title">Welcome, {{ employee.name }}!</div>  
-    <p>{{ employee.designation }} | {{ employee.department }}</p>
+
+<!-- WELCOME HERO -->
+<div class="welcome-hero">
+    <div class="hero-content">
+        <div class="hero-left">
+            <div class="hero-greeting">👋 Good to see you</div>
+            <div class="hero-name">{{ employee.name }}</div>
+            <div class="hero-meta">
+                <span class="hero-badge">🏢 {{ employee.department }}</span>
+                {% if employee.designation %}
+                <span class="hero-badge">💼 {{ employee.designation }}</span>
+                {% endif %}
+                <span class="hero-badge">🪪 {{ employee.employee_id }}</span>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-avatar">{{ employee.name[0].upper() }}</div>
+        </div>
+    </div>
 </div>
 
-<h2 class="page-title">My Assigned Assets</h2>
+<!-- STATS ROW -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-icon-box blue">📦</div>
+        <div class="stat-info">
+            <div class="stat-value">{{ assigned_assets|length }}</div>
+            <div class="stat-label">Assets Assigned</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-box purple">🎫</div>
+        <div class="stat-info">
+            <div class="stat-value">{{ ticket_stats.total }}</div>
+            <div class="stat-label">Total Tickets</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-box amber">🔓</div>
+        <div class="stat-info">
+            <div class="stat-value">{{ ticket_stats.open }}</div>
+            <div class="stat-label">Open Tickets</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-box green">✅</div>
+        <div class="stat-info">
+            <div class="stat-value">{{ ticket_stats.resolved }}</div>
+            <div class="stat-label">Resolved</div>
+        </div>
+    </div>
+</div>
 
-<div class="table-card">
-    <div class="table-header">📦 Assets Assigned to You</div>
-    {% if assets %}
-    <table>
-        <thead>
-            <tr>
-                <th>Asset Name</th>
-                <th>Serial Number</th>
-                <th>Category</th>
-                <th>Location</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for asset in assets %}
-            <tr>
-                <td><strong>{{ asset.asset_name }}</strong></td>
-                <td>{{ asset.serial_number }}</td>
-                <td>{{ asset.category }}</td>
-                <td>{{ asset.location }}</td>
-                <td>{{ asset.status }}</td>
-                <td>
-                    <a href="/report-asset/{{ asset.id }}" class="btn-report">Report Issue</a>
-                </td>
-            </tr>
+<!-- TAB BAR -->
+<div class="tab-bar">
+    <button class="tab-btn active" id="assetsTab" onclick="showSection('assets')">
+        📦 My Assets
+        <span class="tab-count">{{ assigned_assets|length }}</span>
+    </button>
+    <button class="tab-btn" id="ticketsTab" onclick="showSection('tickets')">
+        🎫 My Tickets
+        <span class="tab-count">{{ ticket_stats.total }}</span>
+    </button>
+</div>
+
+<!-- ASSETS SECTION -->
+<div id="assetsSection">
+    <div class="section-header">
+        <div class="section-title">
+            📦 Assets Assigned to You
+            <span class="section-count">{{ assigned_assets|length }} total</span>
+        </div>
+    </div>
+
+    {% if assigned_assets %}
+    <div class="assets-grid">
+        {% for asset in assigned_assets %}
+        <div class="asset-card">
+            <div class="asset-card-top">
+                <div>
+                    <div class="asset-name">{{ asset.asset_name }}</div>
+                    <div class="asset-serial">S/N: {{ asset.serial_number }}</div>
+                </div>
+                <div class="asset-icon">
+                    {% if asset.category == 'Laptop' %}💻
+                    {% elif asset.category == 'Printer' %}🖨️
+                    {% elif asset.category == 'Phone' %}📱
+                    {% elif asset.category == 'Monitor' %}🖥️
+                    {% elif asset.category == 'Network' %}🌐
+                    {% else %}📦{% endif %}
+                </div>
+            </div>
+            <div class="asset-details">
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Category</div>
+                    <div class="asset-detail-value">{{ asset.category }}</div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Location</div>
+                    <div class="asset-detail-value">{{ asset.location or '—' }}</div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Status</div>
+                    <div class="asset-detail-value">
+                        {% if asset.status == 'In Maintenance' %}
+                            <span class="badge badge-warning">{{ asset.status }}</span>
+                        {% elif asset.status == 'Deployed' %}
+                            <span class="badge badge-success">{{ asset.status }}</span>
+                        {% else %}
+                            <span class="badge badge-secondary">{{ asset.status }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="asset-detail-item">
+                    <div class="asset-detail-label">Brand</div>
+                    <div class="asset-detail-value">{{ asset.brand or '—' }}</div>
+                </div>
+            </div>
+            <div class="asset-card-footer">
+                <button class="btn-report" data-asset-id="{{ asset.id }}">
+                    ⚠️ Report Issue
+                </button>
+            </div>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
     {% else %}
-    <p style="padding:1.5rem;color:var(--text-muted);">No assets assigned yet.</p>
+    <div class="table-card">
+        <div class="empty-state">
+            <div class="empty-state-icon">📦</div>
+            <h3>No Assets Assigned</h3>
+            <p>You have no assets assigned to you yet. Contact your administrator.</p>
+        </div>
+    </div>
     {% endif %}
 </div>
 
-<h2 class="page-title">My Reports</h2>
+<!-- TICKETS SECTION -->
+<div id="ticketsSection" style="display:none;">
+    <div class="section-header">
+        <div class="section-title">
+            🎫 My Reported Tickets
+            <span class="section-count">{{ ticket_stats.total }} total</span>
+        </div>
+        <button onclick="openNewTicketModal()" class="btn-primary">
+            ＋ Raise New Ticket
+        </button>
+    </div>
 
-<div class="table-card">
-    <div class="table-header">📋 Submitted Reports</div>
-    {% if reports %}
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Asset</th>
-                <th>Type</th>
-                <th>Message</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for report in reports %}
-            <tr>
-                <td>{{ report.created_at.strftime('%Y-%m-%d') }}</td>
-                <td>{{ report.asset.asset_name }}</td>
-                <td>{{ report.report_type }}</td>
-                <td>{{ report.message[:50] }}...</td>
-                <td>{{ report.status }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% if my_tickets %}
+    <div class="table-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ticket #</th>
+                    <th>Title</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Raised At</th>
+                    <th>Time Elapsed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for ticket in my_tickets %}
+                <tr {% if ticket.is_overdue() %}class="overdue-row"{% endif %}>
+                    <td><span class="ticket-chip">{{ ticket.ticket_number }}</span></td>
+                    <td><strong>{{ ticket.title }}</strong></td>
+                    <td>
+                        {% if ticket.priority == 'Critical' %}
+                            <span class="badge badge-danger">🔴 {{ ticket.priority }}</span>
+                        {% elif ticket.priority == 'High' %}
+                            <span class="badge badge-warning">🟠 {{ ticket.priority }}</span>
+                        {% elif ticket.priority == 'Medium' %}
+                            <span class="badge badge-info">🔵 {{ ticket.priority }}</span>
+                        {% else %}
+                            <span class="badge badge-secondary">⚪ {{ ticket.priority }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if ticket.status == 'Resolved' %}
+                            <span class="badge badge-success">✅ {{ ticket.status }}</span>
+                        {% elif ticket.status == 'In Progress' %}
+                            <span class="badge badge-warning">⚙️ {{ ticket.status }}</span>
+                        {% else %}
+                            <span class="badge badge-secondary">🔓 {{ ticket.status }}</span>
+                        {% endif %}
+                        {% if ticket.is_overdue() %}
+                            <span class="badge badge-danger">⏰ Overdue</span>
+                        {% endif %}
+                    </td>
+                    <td style="white-space:nowrap;">{{ ticket.raised_at.strftime('%d %b %Y') }}<br>
+                        <small style="color:var(--text-secondary);">{{ ticket.raised_at.strftime('%H:%M') }}</small>
+                    </td>
+                    <td style="color:var(--text-secondary); font-size:0.82rem;">{{ ticket.time_since_raised() }}</td>
+                    <td>
+                        <div style="display:flex; gap:0.4rem;">
+                            <a href="/ticket/{{ ticket.id }}" class="btn-sm">👁️ View</a>
+                            {% if ticket.status == 'Open' %}
+                            <form method="POST" action="/employee/delete-ticket/{{ ticket.id }}"
+                                  onsubmit="return confirm('Delete ticket {{ ticket.ticket_number }}?');"
+                                  style="display:inline;">
+                                <button type="submit" class="btn-delete">🗑️</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% else %}
-    <p style="padding:1.5rem;color:var(--text-muted);">No reports submitted.</p>
+    <div class="table-card">
+        <div class="empty-state">
+            <div class="empty-state-icon">🎫</div>
+            <h3>No Tickets Yet</h3>
+            <p>Click "Raise New Ticket" above to report an issue.</p>
+            <br>
+            <button onclick="openNewTicketModal()" class="btn-primary">＋ Raise First Ticket</button>
+        </div>
+    </div>
     {% endif %}
 </div>
 
-<a href="/logout" class="btn-secondary">Logout</a>
+<!-- RAISE TICKET MODAL -->
+<div id="reportIssueModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>🎫 Raise a Support Ticket</h2>
+            <button class="modal-close" onclick="closeReportIssueModal()">✕</button>
+        </div>
+        <form method="POST" action="/employee/raise-ticket">
+            <div class="modal-body">
+                <input type="hidden" name="raised_by_employee_id" value="{{ employee.id }}">
+                <div class="form-group">
+                    <label>Related Asset <small style="font-weight:400;color:var(--text-secondary);">(optional)</small></label>
+                    <select name="asset_id" id="modalAssetSelect">
+                        <option value="">— No Specific Asset / General Issue —</option>
+                        {% for asset in assigned_assets %}
+                        <option value="{{ asset.id }}">{{ asset.asset_name }} ({{ asset.serial_number }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Issue Title <span class="required">*</span></label>
+                    <input type="text" name="title" placeholder="e.g., Printer not responding" required>
+                </div>
+                <div class="form-group">
+                    <label>Description <span class="required">*</span></label>
+                    <textarea name="description" rows="4" placeholder="Describe the issue in detail..." required></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Priority <span class="required">*</span></label>
+                        <select name="priority" required>
+                            <option value="Low">⚪ Low</option>
+                            <option value="Medium" selected>🔵 Medium</option>
+                            <option value="High">🟠 High</option>
+                            <option value="Critical">🔴 Critical</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Category <span class="required">*</span></label>
+                        <select name="category" required>
+                            <option value="Hardware">🖥️ Hardware Issue</option>
+                            <option value="Software">💻 Software Issue</option>
+                            <option value="Network">🌐 Network Issue</option>
+                            <option value="Other">📋 Other</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="closeReportIssueModal()" class="btn-secondary">Cancel</button>
+                <button type="submit" class="btn-primary">🚀 Submit Ticket</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function showSection(section) {
+    const isAssets = section === 'assets';
+    document.getElementById('assetsSection').style.display = isAssets ? 'block' : 'none';
+    document.getElementById('ticketsSection').style.display = isAssets ? 'none' : 'block';
+    document.getElementById('assetsTab').classList.toggle('active', isAssets);
+    document.getElementById('ticketsTab').classList.toggle('active', !isAssets);
+}
+function openReportIssueModal(assetId) {
+    document.getElementById('modalAssetSelect').value = assetId || '';
+    document.getElementById('reportIssueModal').style.display = 'flex';
+}
+function openNewTicketModal() { openReportIssueModal(null); }
+function closeReportIssueModal() {
+    document.getElementById('reportIssueModal').style.display = 'none';
+    document.querySelector('#reportIssueModal form').reset();
+}
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('reportIssueModal').addEventListener('click', function(e) {
+        if (e.target === this) closeReportIssueModal();
+    });
+    document.querySelectorAll('.btn-report').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            openReportIssueModal(this.getAttribute('data-asset-id'));
+        });
+    });
+});
+</script>
 {% endblock %}

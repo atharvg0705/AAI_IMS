@@ -8,6 +8,7 @@
         border-radius: 12px;
         border: 1px solid var(--border);
         padding: 1.5rem 1.75rem 1.25rem;
+        margin-bottom: 1.5rem;
     }
     .form-section-title {
         font-size: 1rem;
@@ -30,6 +31,7 @@
     input[type="text"],
     input[type="number"],
     input[type="date"],
+    input[type="file"],
     select {
         width: 100%;
         padding: 0.55rem 0.6rem;
@@ -42,14 +44,45 @@
         gap: 0.5rem;
         margin-top: 0.5rem;
     }
+    .doc-table {
+        width: 100%;
+        font-size: 0.85rem;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+    .doc-table th {
+        background: #f3f4f6;
+        padding: 0.75rem;
+        text-align: left;
+        border-bottom: 2px solid #e5e7eb;
+        font-weight: 600;
+    }
+    .doc-table td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    .doc-link {
+        color: #3b82f6;
+        text-decoration: none;
+        margin-right: 1rem;
+    }
+    .doc-link:hover {
+        text-decoration: underline;
+    }
+    small {
+        color: #6b7280;
+        font-size: 0.8rem;
+    }
 </style>
 {% endblock %}
 {% block content %}
 <h1 class="page-title">Edit Asset: {{ asset.asset_name }}</h1>
 
-<form method="POST">
+
+<form method="POST" enctype="multipart/form-data">
     <div class="form-card">
         <div class="form-section-title">✏️ Asset Details</div>
+
 
         <div class="form-grid">
             <div>
@@ -108,7 +141,88 @@
                 <input type="date" name="warranty_expiry" value="{{ asset.warranty_expiry or '' }}">
             </div>
         </div>
+    </div>
 
+    <!-- Existing Documents -->
+    {% if asset.documents %}
+    <div class="form-card">
+        <div class="form-section-title">📁 Existing Documents ({{ asset.documents|length }})</div>
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th>Document Name</th>
+                    <th>Type</th>
+                    <th>Remarks</th>
+                    <th>Uploaded</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for doc in asset.documents %}
+                <tr>
+                    <td><strong>{{ doc.document_name }}</strong></td>
+                    <td>{{ doc.document_type }}</td>
+                    <td>{{ doc.remarks or '-' }}</td>
+                    <td>{{ doc.uploaded_at.strftime('%d-%m-%Y') }}</td>
+                    <td>
+                        <a href="/static/{{ doc.file_path }}" target="_blank" class="doc-link">
+                            👁️ View
+                        </a>
+                        <a href="/static/{{ doc.file_path }}" download class="doc-link">
+                            ⬇️ Download
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+    <!-- Upload New Document -->
+    <div class="form-card">
+        <div class="form-section-title">📄 Upload New Document (Optional)</div>
+        <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">
+            Add another document related to this asset
+        </p>
+        
+        <div class="form-grid">
+            <div>
+                <label>Document Name</label>
+                <input type="text" name="document_name" placeholder="e.g., Updated Warranty Certificate">
+            </div>
+            
+            <div>
+                <label>Document Type</label>
+                <select name="document_type">
+                    <option value="">-- Select Type --</option>
+                    <option value="Purchase Invoice">Purchase Invoice</option>
+                    <option value="Warranty Card">Warranty Card</option>
+                    <option value="Approval Letter">Approval Letter</option>
+                    <option value="AMC Agreement">AMC Agreement</option>
+                    <option value="Installation Certificate">Installation Certificate</option>
+                    <option value="Handover Document">Handover Document</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            
+            <div style="grid-column: 1 / -1;">
+                <label>Upload File (PDF, PNG, JPG)</label>
+                <input type="file" name="document" accept=".pdf,.png,.jpg,.jpeg" style="padding: 0.5rem;">
+                <small style="display: block; margin-top: 0.5rem;">
+                    Maximum file size: 5MB
+                </small>
+            </div>
+            
+            <div style="grid-column: 1 / -1;">
+                <label>Remarks (1-2 lines)</label>
+                <input type="text" name="document_remarks" placeholder="Brief note about this document" maxlength="500">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="form-card">
         <div class="form-actions">
             <button type="submit" class="btn-primary">Update Asset</button>
             <a href="/assets" class="btn-secondary">Cancel</a>

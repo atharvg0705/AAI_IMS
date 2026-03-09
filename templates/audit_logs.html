@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% block page_name %}Audit Logs{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* ── PAGE TOPBAR ───────────────────────────────────────── */
+.audit-topbar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.audit-topbar-left h1 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.2rem 0;
+}
+
+.audit-topbar-left p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ── LEGEND ────────────────────────────────────────────── */
+.legend-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    box-shadow: 0 1px 4px var(--shadow);
+}
+
+.legend-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 0.25rem;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.22rem 0.65rem;
+    border-radius: 999px;
+}
+
+.legend-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Action color tokens */
+.action-create   { background: #dcfce7; color: #166534; }
+.action-update   { background: #fef3c7; color: #92400e; }
+.action-delete   { background: #fee2e2; color: #991b1b; }
+.action-login    { background: #dbeafe; color: #1e40af; }
+.action-logout   { background: #f3e8ff; color: #6b21a8; }
+.action-assign   { background: #e0f2fe; color: #075985; }
+.action-other    { background: #f3f4f6; color: #4b5563; }
+
+.dot-create  { background: #22c55e; }
+.dot-update  { background: #f59e0b; }
+.dot-delete  { background: #ef4444; }
+.dot-login   { background: #3b82f6; }
+.dot-logout  { background: #a855f7; }
+.dot-assign  { background: #0ea5e9; }
+.dot-other   { background: #9ca3af; }
+
+/* ── TABLE CARD ────────────────────────────────────────── */
+.table-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 2px 10px var(--shadow);
+}
+
+.table-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.85rem 1.3rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.table-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.log-count {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 0.18rem 0.65rem;
+    font-weight: 600;
+}
+
+/* table inherits global styles from base.html */
+.table-card td { color: var(--text-primary); vertical-align: middle; }
+.table-card th { color: #ffffff; }
+
+/* ── ROW STRIPE by action ──────────────────────────────── */
+tr.row-create td:first-child { border-left: 3px solid #22c55e; }
+tr.row-update td:first-child { border-left: 3px solid #f59e0b; }
+tr.row-delete td:first-child { border-left: 3px solid #ef4444; }
+tr.row-login  td:first-child { border-left: 3px solid #3b82f6; }
+tr.row-logout td:first-child { border-left: 3px solid #a855f7; }
+tr.row-assign td:first-child { border-left: 3px solid #0ea5e9; }
+tr.row-other  td:first-child { border-left: 3px solid #9ca3af; }
+
+/* ── USER CHIP ─────────────────────────────────────────── */
+.user-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.user-avatar.system {
+    background: #6b7280;
+}
+
+/* ── ENTITY CHIP ───────────────────────────────────────── */
+.entity-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.18rem 0.55rem;
+    color: var(--text-secondary);
+    font-family: monospace;
+    letter-spacing: 0.3px;
+}
+
+/* ── DETAILS CELL ──────────────────────────────────────── */
+.details-text {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    max-width: 340px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ── TIMESTAMP ─────────────────────────────────────────── */
+.ts-date {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+}
+
+.ts-time {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 1px;
+}
+
+/* ── EMPTY STATE ───────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 3.5rem 2rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .audit-topbar { flex-direction: column; }
+    .legend-bar { justify-content: flex-start; }
+    .details-text { max-width: 160px; }
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ── TOPBAR ── -->
+<div class="audit-topbar">
+    <div class="audit-topbar-left">
+        <h1>📝 Audit Logs</h1>
+        <p>Complete history of system activities, changes, and user actions</p>
+    </div>
+
+    <!-- ── LEGEND ── -->
+    <div class="legend-bar">
+        <span class="legend-label">Legend:</span>
+        <span class="legend-item action-create">
+            <span class="legend-dot dot-create"></span>CREATE
+        </span>
+        <span class="legend-item action-update">
+            <span class="legend-dot dot-update"></span>UPDATE
+        </span>
+        <span class="legend-item action-delete">
+            <span class="legend-dot dot-delete"></span>DELETE
+        </span>
+        <span class="legend-item action-login">
+            <span class="legend-dot dot-login"></span>LOGIN
+        </span>
+        <span class="legend-item action-logout">
+            <span class="legend-dot dot-logout"></span>LOGOUT
+        </span>
+        <span class="legend-item action-assign">
+            <span class="legend-dot dot-assign"></span>ASSIGN
+        </span>
+        <span class="legend-item action-other">
+            <span class="legend-dot dot-other"></span>OTHER
+        </span>
+    </div>
+</div>
+
+<!-- ── TABLE ── -->
+<div class="table-card">
+    <div class="table-card-header">
+        <span class="table-card-title">🕐 Activity History</span>
+        {% if logs %}
+        <span class="log-count">{{ logs | length }} entr{{ 'ies' if logs | length != 1 else 'y' }}</span>
+        {% endif %}
+    </div>
+
+    {% if logs %}
+    <table>
+        <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>User</th>
+                <th>Action</th>
+                <th>Entity</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+
+            {# Determine row class #}
+            {% set action_lower = log.action | lower %}
+            {% if action_lower == 'create' %}
+                {% set row_class = 'row-create' %}
+                {% set badge_class = 'action-create' %}
+                {% set action_icon = '✅' %}
+            {% elif action_lower == 'update' %}
+                {% set row_class = 'row-update' %}
+                {% set badge_class = 'action-update' %}
+                {% set action_icon = '✏️' %}
+            {% elif action_lower == 'delete' %}
+                {% set row_class = 'row-delete' %}
+                {% set badge_class = 'action-delete' %}
+                {% set action_icon = '🗑️' %}
+            {% elif action_lower == 'login' %}
+                {% set row_class = 'row-login' %}
+                {% set badge_class = 'action-login' %}
+                {% set action_icon = '🔐' %}
+            {% elif action_lower == 'logout' %}
+                {% set row_class = 'row-logout' %}
+                {% set badge_class = 'action-logout' %}
+                {% set action_icon = '🚪' %}
+            {% elif action_lower == 'assign' %}
+                {% set row_class = 'row-assign' %}
+                {% set badge_class = 'action-assign' %}
+                {% set action_icon = '📌' %}
+            {% else %}
+                {% set row_class = 'row-other' %}
+                {% set badge_class = 'action-other' %}
+                {% set action_icon = '⚙️' %}
+            {% endif %}
+
+            <tr class="{{ row_class }}">
+                <!-- Timestamp: split into date + time -->
+                <td>
+                    <span class="ts-date">{{ log.timestamp.strftime('%d %b %Y') }}</span>
+                    <span class="ts-time">{{ log.timestamp.strftime('%H:%M:%S') }}</span>
+                </td>
+
+                <!-- User chip with avatar initial -->
+                <td>
+                    <div class="user-chip">
+                        <div class="user-avatar {% if not log.user %}system{% endif %}">
+                            {% if log.user %}
+                                {{ log.user.username[0] | upper }}
+                            {% else %}
+                                ⚙
+                            {% endif %}
+                        </div>
+                        {{ log.user.username if log.user else 'System' }}
+                    </div>
+                </td>
+
+                <!-- Color-coded action badge -->
+                <td>
+                    <span class="legend-item {{ badge_class }}">
+                        <span class="legend-dot dot-{{ action_lower if action_lower in ['create','update','delete','login','logout','assign'] else 'other' }}"></span>
+                        {{ action_icon }} {{ log.action }}
+                    </span>
+                </td>
+
+                <!-- Entity as monospace chip -->
+                <td>
+                    <span class="entity-chip">
+                        {{ log.entitytype }} #{{ log.entityid or '—' }}
+                    </span>
+                </td>
+
+                <!-- Details truncated with title for full text on hover -->
+                <td>
+                    <span class="details-text" title="{{ log.details or '' }}">
+                        {{ log.details or '—' }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% else %}
+    <div class="empty-state">
+        <div style="font-size:2.5rem;margin-bottom:0.75rem;">📭</div>
+        No audit logs found yet.
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

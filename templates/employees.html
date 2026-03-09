@@ -1,73 +1,758 @@
 {% extends 'base.html' %}
-{% block top_title %}Employees{% endblock %}
+{% block page_name %}Employees{% endblock %}
+
 {% block extra_css %}
 <style>
-    .toolbar {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-    .table-card {
-        background: var(--card-bg);
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        overflow: hidden;
-    }
-    table { width:100%; border-collapse: collapse; font-size:0.85rem; }
-    th,td { padding:0.6rem 0.75rem; border-bottom:1px solid var(--border); text-align:left; }
-    thead { background:#f9fafb; }
-    .actions { display:flex; gap:0.35rem; }
-    .btn-sm {
-        border:none; border-radius:4px; padding:0.25rem 0.6rem;
-        font-size:0.75rem; cursor:pointer;
-        background:#e5e7eb; color:#111827;
-    }
-    .btn-sm-danger { background:#fee2e2; color:#b91c1c; }
+* { box-sizing: border-box; }
+
+/* ── PAGE HERO ── */
+.page-hero {
+    background: linear-gradient(135deg, #0f2460 0%, #1e3a8a 50%, #0369a1 100%);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 12px 40px rgba(15,36,96,0.3);
+}
+.page-hero::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 50%;
+}
+.page-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; right: 140px;
+    width: 160px; height: 160px;
+    background: rgba(125,211,252,0.08);
+    border-radius: 50%;
+}
+.hero-inner {
+    position: relative; z-index: 2;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+}
+.hero-text-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+.hero-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+}
+.hero-desc {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+}
+.hero-chips {
+    display: flex; gap: 0.6rem; margin-top: 0.75rem; flex-wrap: wrap;
+}
+.hero-chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+.hero-chip.sky { background: rgba(125,211,252,0.2); border-color: rgba(125,211,252,0.35); color: #bae6fd; }
+.btn-add-emp {
+    background: #fff;
+    color: #1e3a8a;
+    padding: 0.7rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.25s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    white-space: nowrap;
+}
+.btn-add-emp:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    background: #e0f2fe;
+}
+
+/* ── STATS ROW ── */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.1rem;
+    margin-bottom: 2rem;
+}
+.stat-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px var(--shadow); }
+.stat-icon-box {
+    width: 48px; height: 48px;
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+.sib-blue   { background: #eff6ff; }
+.sib-sky    { background: #e0f2fe; }
+.sib-green  { background: #f0fdf4; }
+.sib-purple { background: #faf5ff; }
+.stat-val { font-size: 1.65rem; font-weight: 800; color: var(--text-primary); line-height: 1; }
+.stat-lbl { font-size: 0.73rem; color: var(--text-secondary); font-weight: 500; margin-top: 0.25rem; text-transform: uppercase; letter-spacing: 0.4px; }
+
+/* ── TOOLBAR ── */
+.toolbar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.search-wrap {
+    flex: 1;
+    min-width: 220px;
+    position: relative;
+}
+.search-wrap .search-icon {
+    position: absolute;
+    left: 0.85rem; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+.search-wrap input {
+    width: 100%;
+    padding: 0.65rem 1rem 0.65rem 2.4rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.86rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-wrap input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+}
+.toolbar select {
+    padding: 0.65rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.86rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.toolbar select:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56,189,248,0.12);
+}
+
+/* ── TABLE CARD ── */
+.table-card {
+    background: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
+}
+.table-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.table-card-title {
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.emp-count-badge {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 20px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid #bae6fd;
+}
+[data-theme="dark"] .emp-count-badge {
+    background: rgba(56,189,248,0.15);
+    color: #38bdf8;
+    border-color: rgba(56,189,248,0.3);
+}
+
+/* ── TABLE ── */
+table { width: 100%; border-collapse: collapse; }
+table thead { background: linear-gradient(135deg, #0f2460, #1e3a8a); }
+table thead th {
+    padding: 0.9rem 1.25rem;
+    color: rgba(255,255,255,0.88);
+    font-weight: 600;
+    font-size: 0.76rem;
+    text-align: left;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s;
+}
+table tbody tr:last-child { border-bottom: none; }
+table tbody tr:hover { background: rgba(56,189,248,0.04); }
+table tbody td {
+    padding: 0.85rem 1.25rem;
+    font-size: 0.86rem;
+    color: var(--text-primary);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* ── EMP ID CHIP ── */
+.emp-id-chip {
+    font-family: monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+    border-radius: 7px;
+    padding: 0.22rem 0.6rem;
+    letter-spacing: 0.4px;
+    display: inline-block;
+}
+[data-theme="dark"] .emp-id-chip {
+    background: rgba(56,189,248,0.12);
+    color: #38bdf8;
+    border-color: rgba(56,189,248,0.25);
+}
+
+/* ── EMP NAME CELL ── */
+.emp-name-cell {
+    display: flex; align-items: center; gap: 0.7rem;
+}
+.emp-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a8a, #0369a1);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 800;
+    flex-shrink: 0; text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(30,58,138,0.3);
+}
+.emp-full-name { font-weight: 600; font-size: 0.86rem; color: var(--text-primary); }
+.emp-email { font-size: 0.79rem; color: var(--text-secondary); margin-top: 0.1rem; }
+
+/* ── DEPT BADGE ── */
+.dept-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.74rem; font-weight: 600;
+    background: #e0f2fe; color: #075985;
+    border: 1px solid #bae6fd;
+    white-space: nowrap;
+}
+[data-theme="dark"] .dept-badge {
+    background: rgba(14,165,233,0.12);
+    color: #38bdf8;
+    border-color: rgba(14,165,233,0.25);
+}
+
+/* ── ASSETS COUNT ── */
+.assets-pill {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.22rem 0.65rem;
+    border-radius: 20px;
+    font-size: 0.76rem; font-weight: 700;
+}
+.assets-pill.has { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+.assets-pill.none { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--border-color); font-weight: 500; }
+[data-theme="dark"] .assets-pill.has { background: rgba(16,185,129,0.12); color: #34d399; border-color: rgba(16,185,129,0.25); }
+
+/* ── ACTION BUTTONS ── */
+.actions {
+    display: flex;
+    gap: 0.35rem;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.btn-edit {
+    padding: 0.32rem 0.7rem;
+    font-size: 0.74rem; font-weight: 600;
+    border: 1.5px solid var(--border-color);
+    border-radius: 7px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    white-space: nowrap;
+}
+.btn-edit:hover {
+    background: #1e3a8a; color: #fff;
+    border-color: #1e3a8a; transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(30,58,138,0.3);
+}
+.btn-pwd {
+    padding: 0.32rem 0.7rem;
+    font-size: 0.74rem; font-weight: 600;
+    border: 1.5px solid #a78bfa;
+    border-radius: 7px;
+    background: #f5f3ff; color: #7c3aed;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    white-space: nowrap;
+}
+.btn-pwd:hover {
+    background: #7c3aed; color: #fff;
+    border-color: #7c3aed; transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(124,58,237,0.3);
+}
+[data-theme="dark"] .btn-pwd {
+    background: rgba(124,58,237,0.12);
+    border-color: rgba(124,58,237,0.35); color: #a78bfa;
+}
+.btn-delete {
+    padding: 0.32rem 0.7rem;
+    font-size: 0.74rem; font-weight: 600;
+    border: 1.5px solid #fca5a5;
+    border-radius: 7px;
+    background: #fff1f1; color: #b91c1c;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 0.25rem;
+    white-space: nowrap;
+}
+.btn-delete:hover {
+    background: #ef4444; color: #fff;
+    border-color: #ef4444; transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(239,68,68,0.3);
+}
+[data-theme="dark"] .btn-delete {
+    background: rgba(239,68,68,0.1);
+    border-color: rgba(239,68,68,0.3); color: #f87171;
+}
+
+/* ── EMPTY / NO RESULTS ── */
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+.empty-state-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+.empty-state h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.4rem; }
+.empty-state p { font-size: 0.85rem; }
+
+/* ── PASSWORD MODAL ── */
+.pwd-modal-backdrop {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+.pwd-modal-backdrop.open { display: flex; animation: fadeIn 0.18s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.pwd-modal {
+    background: var(--bg-card);
+    border-radius: 20px;
+    width: 420px;
+    max-width: 94vw;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+    overflow: hidden;
+    animation: slideUp 0.22s ease;
+}
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+.pwd-modal-header {
+    background: linear-gradient(135deg, #0f2460, #0369a1);
+    padding: 1.5rem 1.75rem;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.pwd-modal-header h3 {
+    font-size: 1.05rem; font-weight: 800;
+    color: #fff; margin: 0;
+}
+.pwd-modal-close {
+    background: rgba(255,255,255,0.15);
+    border: none; color: #fff;
+    width: 30px; height: 30px;
+    border-radius: 8px; font-size: 1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+}
+.pwd-modal-close:hover { background: rgba(255,255,255,0.25); }
+.pwd-modal-body { padding: 1.75rem; }
+.pwd-modal-name {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 0.85rem;
+    background: #e0f2fe;
+    border-radius: 8px;
+    border-left: 3px solid #0369a1;
+    color: #075985;
+    font-weight: 600;
+}
+[data-theme="dark"] .pwd-modal-name {
+    background: rgba(56,189,248,0.1);
+    color: #38bdf8;
+    border-left-color: #38bdf8;
+}
+.pwd-modal-body label {
+    display: block;
+    font-size: 0.82rem; font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+.pwd-modal-body input[type="password"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    border: 1.5px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+.pwd-modal-body input[type="password"]:focus {
+    outline: none;
+    border-color: #0369a1;
+    box-shadow: 0 0 0 3px rgba(3,105,161,0.12);
+}
+.pwd-modal-footer {
+    display: flex; gap: 0.6rem; justify-content: flex-end;
+    padding: 1.1rem 1.75rem;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+}
+.btn-cancel {
+    padding: 0.6rem 1.3rem;
+    border-radius: 9px;
+    border: 1.5px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 0.86rem; font-weight: 600;
+    cursor: pointer; transition: all 0.2s;
+}
+.btn-cancel:hover { background: var(--bg-secondary); color: var(--text-primary); }
+.btn-submit-pwd {
+    padding: 0.6rem 1.3rem;
+    border-radius: 9px;
+    border: none;
+    background: linear-gradient(135deg, #0f2460, #0369a1);
+    color: #fff;
+    font-size: 0.86rem; font-weight: 700;
+    cursor: pointer; transition: all 0.25s;
+    box-shadow: 0 3px 10px rgba(3,105,161,0.3);
+}
+.btn-submit-pwd:hover { transform: translateY(-1px); box-shadow: 0 5px 14px rgba(3,105,161,0.4); }
+
+@media (max-width: 900px) {
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .page-hero { padding: 1.5rem; }
+    .hero-title { font-size: 1.4rem; }
+}
 </style>
 {% endblock %}
-{% block content %}
-<h1 class="page-title">Employees</h1>
 
-<div class="toolbar">
-    <div></div>
-    <a href="/add-employee" class="btn-primary">+ Add Employee</a>
+
+{% block content %}
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="hero-inner">
+        <div>
+            <div class="hero-text-label">AAI Inventory Management</div>
+            <div class="hero-title">👥 Employee Directory</div>
+            <div class="hero-desc">Manage employee records, credentials, and asset assignments</div>
+            <div class="hero-chips">
+                <span class="hero-chip">📋 {{ employees | length }} Total</span>
+                <span class="hero-chip sky">🏢 {{ employees | map(attribute='department') | unique | list | length }} Departments</span>
+                <span class="hero-chip">📦 {{ employees | sum(attribute='assets_assigned') }} Assets Assigned</span>
+            </div>
+        </div>
+        <a href="/add-employee" class="btn-add-emp">＋ Add Employee</a>
+    </div>
 </div>
 
+<!-- STATS ROW -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-icon-box sib-blue">👥</div>
+        <div>
+            <div class="stat-val">{{ employees | length }}</div>
+            <div class="stat-lbl">Total Employees</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-box sib-sky">📦</div>
+        <div>
+            <div class="stat-val">{{ employees | sum(attribute='assets_assigned') }}</div>
+            <div class="stat-lbl">Assets Assigned</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-box sib-green">🏢</div>
+        <div>
+            <div class="stat-val">{{ employees | map(attribute='department') | unique | list | length }}</div>
+            <div class="stat-lbl">Departments</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon-box sib-purple">⚠️</div>
+        <div>
+            <div class="stat-val">{{ employees | selectattr('assets_assigned', 'equalto', 0) | list | length }}</div>
+            <div class="stat-lbl">No Assets Yet</div>
+        </div>
+    </div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="empSearch"
+               placeholder="Search by name, ID, email, department..."
+               oninput="filterEmployees()">
+    </div>
+    <select id="deptFilter" onchange="filterEmployees()">
+        <option value="">🏢 All Departments</option>
+        {% set seen = [] %}
+        {% for emp in employees %}
+            {% if emp.department not in seen %}
+                {% if seen.append(emp.department) %}{% endif %}
+                <option value="{{ emp.department }}">{{ emp.department }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</div>
+
+<!-- TABLE CARD -->
 <div class="table-card">
+    <div class="table-card-header">
+        <span class="table-card-title">📋 Employee Directory</span>
+        <span class="emp-count-badge" id="empCountLabel">
+            {{ employees | length }} employee{{ 's' if employees | length != 1 else '' }}
+        </span>
+    </div>
+
     {% if employees %}
     <table>
         <thead>
             <tr>
                 <th>Employee ID</th>
                 <th>Name</th>
-                <th>Email</th>
                 <th>Department</th>
                 <th>Assets</th>
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-        {% for emp in employees %}
-            <tr>
-                <td>{{ emp.employee_id }}</td>
-                <td>{{ emp.name }}</td>
-                <td>{{ emp.email }}</td>
-                <td>{{ emp.department }}</td>
-                <td>{{ emp.assets_assigned }}</td>
+        <tbody id="empTableBody">
+            {% for emp in employees %}
+            <tr data-name="{{ emp.name | lower }}"
+                data-id="{{ emp.employee_id | lower }}"
+                data-email="{{ emp.email | lower if emp.email else '' }}"
+                data-dept="{{ emp.department | lower }}">
+
+                <!-- ID -->
+                <td><span class="emp-id-chip">{{ emp.employee_id }}</span></td>
+
+                <!-- Name + Email stacked -->
+                <td>
+                    <div class="emp-name-cell">
+                        <div class="emp-avatar">{{ emp.name[0] }}</div>
+                        <div>
+                            <div class="emp-full-name">{{ emp.name }}</div>
+                            <div class="emp-email">{{ emp.email or '—' }}</div>
+                        </div>
+                    </div>
+                </td>
+
+                <!-- Department -->
+                <td><span class="dept-badge">🏢 {{ emp.department }}</span></td>
+
+                <!-- Assets -->
+                <td>
+                    {% if emp.assets_assigned > 0 %}
+                        <span class="assets-pill has">📦 {{ emp.assets_assigned }}</span>
+                    {% else %}
+                        <span class="assets-pill none">— None</span>
+                    {% endif %}
+                </td>
+
+                <!-- Actions — all inline, no wrap -->
                 <td>
                     <div class="actions">
-                        <a href="/edit-employee/{{ emp.id }}" class="btn-sm">Edit</a>
-                        <form method="POST" action="/delete-employee/{{ emp.id }}" onsubmit="return confirm('Delete?')">
-                            <button class="btn-sm btn-sm-danger" type="submit">Delete</button>
+                        <a href="/edit-employee/{{ emp.id }}" class="btn-edit">✏️ Edit</a>
+                        <button class="btn-pwd"
+                                data-empid="{{ emp.id }}"
+                                data-empname="{{ emp.name }}"
+                                data-empcode="{{ emp.employee_id }}"
+                                onclick="openPwdModal(this)">
+                            🔑 Password
+                        </button>
+                        <form method="POST" action="/delete-employee/{{ emp.id }}"
+                              onsubmit="return confirm('Delete {{ emp.name }}? This cannot be undone.');"
+                              style="margin:0;">
+                            <button class="btn-delete" type="submit">🗑️ Delete</button>
                         </form>
                     </div>
                 </td>
             </tr>
-        {% endfor %}
+            {% endfor %}
         </tbody>
     </table>
+
+    <div id="noResults" style="display:none;" class="empty-state">
+        <div class="empty-state-icon">🔍</div>
+        <h3>No employees found</h3>
+        <p>No results match your search.
+            <span onclick="clearSearch()"
+                  style="color:#0369a1; cursor:pointer; font-weight:600;">
+                Clear filter ✕
+            </span>
+        </p>
+    </div>
+
     {% else %}
-    <p style="padding:1rem;color:var(--text-muted);">No employees found.</p>
+    <div class="empty-state">
+        <div class="empty-state-icon">👥</div>
+        <h3>No employees yet</h3>
+        <p>Get started by adding your first employee.</p>
+        <br>
+        <a href="/add-employee" style="
+            display:inline-flex; align-items:center; gap:0.4rem;
+            background:linear-gradient(135deg,#1e3a8a,#0369a1);
+            color:#fff; padding:0.65rem 1.4rem; border-radius:10px;
+            font-weight:700; font-size:0.88rem; text-decoration:none;
+            box-shadow:0 4px 12px rgba(30,58,138,0.3);">
+            ＋ Add First Employee
+        </a>
+    </div>
     {% endif %}
 </div>
+
+
+<!-- PASSWORD RESET MODAL -->
+<div class="pwd-modal-backdrop" id="pwdModalBackdrop" onclick="handleBackdropClick(event)">
+    <div class="pwd-modal">
+        <div class="pwd-modal-header">
+            <h3>🔑 Reset Password</h3>
+            <button class="pwd-modal-close" onclick="closePwdModal()">✕</button>
+        </div>
+        <div class="pwd-modal-body">
+            <div class="pwd-modal-name" id="pwdModalName">Employee: —</div>
+            <form id="pwdForm" method="POST">
+                <label>New Password</label>
+                <input type="password" name="new_password" id="pwdInput"
+                       placeholder="Enter new password (min 4 characters)"
+                       required minlength="4"
+                       style="margin-bottom:0;">
+            </form>
+        </div>
+        <div class="pwd-modal-footer">
+            <button type="button" class="btn-cancel" onclick="closePwdModal()">Cancel</button>
+            <button type="submit" class="btn-submit-pwd"
+                    onclick="document.getElementById('pwdForm').submit()">
+                ✓ Update Password
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+function openPwdModal(btn) {
+    const empId   = btn.dataset.empid;
+    const empName = btn.dataset.empname;
+    const empCode = btn.dataset.empcode;
+    document.getElementById('pwdForm').action = `/reset-employee-password/${empId}`;
+    document.getElementById('pwdModalName').textContent = `${empName}  (${empCode})`;
+    document.getElementById('pwdInput').value = '';
+    document.getElementById('pwdModalBackdrop').classList.add('open');
+    setTimeout(() => document.getElementById('pwdInput').focus(), 150);
+}
+function closePwdModal() {
+    document.getElementById('pwdModalBackdrop').classList.remove('open');
+}
+function handleBackdropClick(e) {
+    if (e.target === document.getElementById('pwdModalBackdrop')) closePwdModal();
+}
+
+function filterEmployees() {
+    const q    = document.getElementById('empSearch').value.toLowerCase().trim();
+    const dept = document.getElementById('deptFilter').value.toLowerCase();
+    const rows = document.querySelectorAll('#empTableBody tr');
+    let visible = 0;
+    rows.forEach(row => {
+        const matchQ    = !q    || [row.dataset.name, row.dataset.id, row.dataset.email, row.dataset.dept].some(v => (v||'').includes(q));
+        const matchDept = !dept || (row.dataset.dept||'').includes(dept);
+        const show = matchQ && matchDept;
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
+    });
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    const lbl = document.getElementById('empCountLabel');
+    if (lbl) lbl.textContent = `${visible} employee${visible !== 1 ? 's' : ''} shown`;
+}
+function clearSearch() {
+    document.getElementById('empSearch').value = '';
+    document.getElementById('deptFilter').value = '';
+    filterEmployees();
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePwdModal(); });
+</script>
 {% endblock %}

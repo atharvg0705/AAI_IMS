@@ -1,37 +1,294 @@
 {% extends 'base.html' %}
-{% block top_title %}Asset Tracking{% endblock %}
+{% block page_name %}Asset Tracking{% endblock %}
 {% block extra_css %}
 <style>
-    .table-card {
-        background: var(--card-bg);
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        overflow: hidden;
-    }
-    table { width:100%; border-collapse: collapse; font-size:0.85rem; }
-    th,td { padding:0.6rem 0.75rem; border-bottom:1px solid var(--border); text-align:left; }
-    thead { background:#f9fafb; }
-    .badge {
-        display:inline-flex;
-        padding:0.15rem 0.55rem;
-        border-radius:999px;
-        font-size:0.75rem;
-    }
-    .badge-active { background:#dcfce7; color:#166534; }
-    .badge-returned { background:#e5e7eb; color:#374151; }
+/* ── HEADER ── */
+.page-header {
+    margin-bottom: 1.5rem;
+}
+.page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.25rem 0;
+}
+.page-header p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* ── SUMMARY CARDS ── */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.summary-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 2px 8px var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.summary-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+.summary-info .summary-value {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+.summary-info .summary-label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: 0.25rem;
+}
+
+/* ── FILTER BAR ── */
+.filter-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 4px var(--shadow);
+}
+.filter-bar form {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.filter-bar input,
+.filter-bar select {
+    padding: 0.42rem 0.75rem;
+    font-size: 0.82rem;
+    border-radius: 7px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    flex: 1 1 140px;
+    min-width: 0;
+}
+.filter-bar button {
+    padding: 0.42rem 1rem;
+    font-size: 0.82rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+}
+.filter-bar button:hover { background: var(--primary-dark); }
+.btn-clear-filter {
+    padding: 0.42rem 1rem;
+    font-size: 0.82rem;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── TABLE CARD ── */
+.table-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 2px 10px var(--shadow);
+    margin-bottom: 1.5rem;
+}
+.table-card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.record-chip {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--primary);
+    color: #fff;
+    padding: 0.2rem 0.65rem;
+    border-radius: 999px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+table thead {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+}
+table thead th {
+    padding: 0.85rem 1rem;
+    color: #ffffff !important;
+    font-weight: 600;
+    font-size: 0.83rem;
+    text-align: left;
+    letter-spacing: 0.2px;
+}
+table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s;
+}
+table tbody tr:hover {
+    background: rgba(59, 130, 246, 0.04);
+}
+table tbody td {
+    padding: 0.75rem 1rem;
+    color: var(--text-primary) !important;
+    vertical-align: middle;
+}
+table tbody td strong {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+}
+
+/* ── BADGES ── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+.badge-active    { background: #dcfce7; color: #166534; }
+.badge-returned  { background: #e5e7eb; color: #374151; }
+
+/* ── EMPTY STATE ── */
+.empty-state {
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-secondary);
+}
+.empty-state-icon { font-size: 3rem; margin-bottom: 0.75rem; opacity: 0.5; }
+
+/* ── BACK BUTTON ── */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.btn-back:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+@media (max-width: 768px) {
+    .summary-grid { grid-template-columns: repeat(2, 1fr); }
+    .filter-bar form { flex-direction: column; }
+}
 </style>
 {% endblock %}
-{% block content %}
-<h1 class="page-title">📋 Asset Tracking</h1>
-<p class="page-subtitle">Assignment and return history of all assets.</p>
 
+{% block content %}
+
+<!-- ── HEADER ── -->
+<div class="page-header">
+    <h1>📋 Asset Tracking</h1>
+    <p>Assignment and return history of all assets</p>
+</div>
+
+<!-- ── SUMMARY CARDS ── -->
+{% set total      = assignments | length %}
+{% set active     = assignments | selectattr('0.returned_date', 'none') | list | length %}
+{% set returned   = total - active %}
+<div class="summary-grid">
+    <div class="summary-card">
+        <div class="summary-icon">📦</div>
+        <div class="summary-info">
+            <div class="summary-value">{{ total }}</div>
+            <div class="summary-label">Total Assignments</div>
+        </div>
+    </div>
+    <div class="summary-card">
+        <div class="summary-icon">✅</div>
+        <div class="summary-info">
+            <div class="summary-value">{{ active }}</div>
+            <div class="summary-label">Currently Active</div>
+        </div>
+    </div>
+    <div class="summary-card">
+        <div class="summary-icon">↩️</div>
+        <div class="summary-info">
+            <div class="summary-value">{{ returned }}</div>
+            <div class="summary-label">Returned</div>
+        </div>
+    </div>
+    <div class="summary-card">
+        <div class="summary-icon">👥</div>
+        <div class="summary-info">
+            <div class="summary-value">
+                {{ assignments | map(attribute='2') | map(attribute='department') | unique | list | length }}
+            </div>
+            <div class="summary-label">Departments Involved</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── FILTERS ── -->
+<div class="filter-bar">
+    <form method="GET" action="/tracking">
+        <input type="text"
+               name="search"
+               placeholder="🔍 Search asset or employee..."
+               value="{{ request.args.get('search', '') }}">
+        <select name="status">
+            <option value="">All Status</option>
+            <option value="active"   {% if request.args.get('status') == 'active'   %}selected{% endif %}>Active</option>
+            <option value="returned" {% if request.args.get('status') == 'returned' %}selected{% endif %}>Returned</option>
+        </select>
+        <button type="submit">🔄 Filter</button>
+        <a href="/tracking" class="btn-clear-filter">✕ Clear</a>
+    </form>
+</div>
+
+<!-- ── TABLE ── -->
 <div class="table-card">
+    <div class="table-card-header">
+        <span>📋 Assignment History</span>
+        <span class="record-chip">{{ assignments | length }} record{{ 's' if assignments | length != 1 else '' }}</span>
+    </div>
+
     {% if assignments %}
     <table>
         <thead>
             <tr>
                 <th>Asset</th>
-                <th>Serial</th>
+                <th>Serial Number</th>
                 <th>Employee</th>
                 <th>Department</th>
                 <th>Assigned Date</th>
@@ -47,30 +304,37 @@
                 <td>{{ asset.serial_number }}</td>
                 <td>{{ employee.name }}</td>
                 <td>{{ employee.department }}</td>
-                <td>{{ assignment.assigned_date.strftime('%Y-%m-%d') }}</td>
+                <td>{{ assignment.assigned_date.strftime('%d %b %Y') }}</td>
                 <td>
                     {% if assignment.returned_date %}
-                        {{ assignment.returned_date.strftime('%Y-%m-%d') }}
+                        {{ assignment.returned_date.strftime('%d %b %Y') }}
                     {% else %}
-                        -
+                        <span style="color:var(--text-secondary);">—</span>
                     {% endif %}
                 </td>
                 <td>
                     {% if assignment.returned_date %}
-                        <span class="badge badge-returned">Returned</span>
+                        <span class="badge badge-returned">↩ Returned</span>
                     {% else %}
-                        <span class="badge badge-active">Active</span>
+                        <span class="badge badge-active">● Active</span>
                     {% endif %}
                 </td>
-                <td>{{ assignment.notes }}</td>
+                <td style="max-width:200px; color:var(--text-secondary);">
+                    {{ assignment.notes or '—' }}
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     {% else %}
-    <p style="padding:1.5rem;color:var(--text-muted);">No tracking records found.</p>
+    <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <div style="font-weight:600;">No tracking records found.</div>
+        <div style="font-size:0.8rem; margin-top:0.3rem;">Assign assets to employees to see history here.</div>
+    </div>
     {% endif %}
 </div>
 
-<a href="/assets" class="btn-primary" style="margin-top:1rem;">← Back to Assets</a>
+<a href="/assets" class="btn-back">← Back to Assets</a>
+
 {% endblock %}

@@ -1,0 +1,454 @@
+{% extends "base.html" %}
+{% block page_name %}Analytics{% endblock %}
+
+{% block content %}
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<div class="analytics-wrapper">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div>
+            <h1 class="page-title">📊 Analytics & Insights</h1>
+            <p class="page-subtitle">Live overview of assets, tickets, and team performance</p>
+        </div>
+        <div class="header-actions">
+            <button onclick="refreshAll()" class="btn-refresh">🔄 Refresh</button>
+        </div>
+    </div>
+
+    <!-- Summary Stat Cards -->
+    <div class="summary-grid">
+        <div class="stat-card blue">
+            <div class="stat-icon">📦</div>
+            <div class="stat-info">
+                <span class="stat-value">{{ summary.total_assets }}</span>
+                <span class="stat-label">Total Assets</span>
+            </div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-icon">👥</div>
+            <div class="stat-info">
+                <span class="stat-value">{{ summary.total_employees }}</span>
+                <span class="stat-label">Employees</span>
+            </div>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-icon">🎫</div>
+            <div class="stat-info">
+                <span class="stat-value">{{ summary.total_tickets }}</span>
+                <span class="stat-label">Total Tickets</span>
+            </div>
+        </div>
+        <div class="stat-card yellow">
+            <div class="stat-icon">🟡</div>
+            <div class="stat-info">
+                <span class="stat-value">{{ summary.open_tickets }}</span>
+                <span class="stat-label">Open Tickets</span>
+            </div>
+        </div>
+        <div class="stat-card red">
+            <div class="stat-icon">⚠️</div>
+            <div class="stat-info">
+                <span class="stat-value">{{ summary.overdue_tickets }}</span>
+                <span class="stat-label">Overdue</span>
+            </div>
+        </div>
+        <div class="stat-card purple">
+            <div class="stat-icon">💰</div>
+            <div class="stat-info">
+                <span class="stat-value">₹{{ "{:,.0f}".format(summary.total_asset_value) }}</span>
+                <span class="stat-label">Total Asset Value</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Grid -->
+    <div class="charts-grid">
+
+        <!-- Ticket Trend Line Chart -->
+        <div class="chart-card full-width">
+            <h3 class="chart-title">📈 Ticket Trend — Last 7 Days</h3>
+            <canvas id="ticketTrendChart" height="90"></canvas>
+        </div>
+
+        <!-- Asset by Category Pie -->
+        <div class="chart-card">
+            <h3 class="chart-title">📦 Assets by Category</h3>
+            <canvas id="assetCategoryChart"></canvas>
+        </div>
+
+        <!-- Asset by Status Doughnut -->
+        <div class="chart-card">
+            <h3 class="chart-title">🔄 Assets by Status</h3>
+            <canvas id="assetStatusChart"></canvas>
+        </div>
+
+        <!-- Ticket Status Doughnut -->
+        <div class="chart-card">
+            <h3 class="chart-title">✅ Tickets by Status</h3>
+            <canvas id="ticketStatusChart"></canvas>
+        </div>
+
+        <!-- Ticket Priority Pie -->
+        <div class="chart-card">
+            <h3 class="chart-title">🚦 Tickets by Priority</h3>
+            <canvas id="ticketPriorityChart"></canvas>
+        </div>
+
+        <!-- Employee Workload Bar -->
+        <div class="chart-card full-width">
+            <h3 class="chart-title">👥 Employee Active Ticket Workload</h3>
+            <canvas id="workloadChart" height="90"></canvas>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- ===== STYLES ===== -->
+<style>
+.analytics-wrapper {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0.25rem 0 0;
+}
+
+.btn-refresh {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-refresh:hover {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+    transform: scale(1.02);
+}
+
+/* Summary Cards */
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px var(--shadow);
+}
+
+.stat-card.blue  { border-left: 4px solid #3b82f6; }
+.stat-card.green { border-left: 4px solid #22c55e; }
+.stat-card.orange { border-left: 4px solid #f97316; }
+.stat-card.yellow { border-left: 4px solid #eab308; }
+.stat-card.red   { border-left: 4px solid #ef4444; }
+.stat-card.purple { border-left: 4px solid #a855f7; }
+
+.stat-icon {
+    font-size: 1.6rem;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Charts */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.chart-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    transition: box-shadow 0.2s;
+}
+
+.chart-card:hover {
+    box-shadow: 0 4px 20px var(--shadow);
+}
+
+.chart-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.chart-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 1rem;
+}
+
+@media (max-width: 768px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+    .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+    .page-header {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+</style>
+
+
+<!-- ===== CHART.JS SCRIPTS ===== -->
+<script>
+// Color palettes
+const COLORS_MAIN  = ['#3b82f6','#22c55e','#f59e0b','#ef4444','#a855f7','#06b6d4','#f97316','#84cc16'];
+const COLORS_STATUS = {'Open':'#f59e0b','In Progress':'#3b82f6','Resolved':'#22c55e','Closed':'#6b7280'};
+const COLORS_PRIORITY = {'Critical':'#ef4444','High':'#f97316','Medium':'#f59e0b','Low':'#22c55e'};
+
+// Detect current theme for chart text color
+const isDark = document.documentElement.classList.contains('dark') ||
+               document.body.classList.contains('dark') ||
+               getComputedStyle(document.body).backgroundColor === 'rgb(2, 6, 23)';
+const textColor = isDark ? '#e5e7eb' : '#374151';
+const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+
+Chart.defaults.color = textColor;
+Chart.defaults.borderColor = gridColor;
+
+// ── 1. Ticket Trend (Line) ─────────────────────────────────────────────────
+new Chart(document.getElementById('ticketTrendChart'), {
+    type: 'line',
+    data: {
+        labels: [{% for day in ticket_trends %}'{{ day.date }}'{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Tickets Raised',
+            data: [{% for day in ticket_trends %}{{ day.count }}{% if not loop.last %},{% endif %}{% endfor %}],
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59,130,246,0.12)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#3b82f6',
+            pointRadius: 5,
+            pointHoverRadius: 7
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: { mode: 'index', intersect: false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { stepSize: 1 },
+                grid: { color: gridColor }
+            },
+            x: { grid: { display: false } }
+        }
+    }
+});
+
+// ── 2. Assets by Category (Pie) ────────────────────────────────────────────
+new Chart(document.getElementById('assetCategoryChart'), {
+    type: 'pie',
+    data: {
+        labels: [{% for cat in asset_cats %}'{{ cat.category }}'{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            data: [{% for cat in asset_cats %}{{ cat.count }}{% if not loop.last %},{% endif %}{% endfor %}],
+            backgroundColor: COLORS_MAIN,
+            borderWidth: 2,
+            borderColor: isDark ? '#1e293b' : '#ffffff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { padding: 12, font: { size: 12 } }
+            }
+        }
+    }
+});
+
+// ── 3. Assets by Status (Doughnut) ─────────────────────────────────────────
+new Chart(document.getElementById('assetStatusChart'), {
+    type: 'doughnut',
+    data: {
+        labels: [{% for s in asset_statuses %}'{{ s.status }}'{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            data: [{% for s in asset_statuses %}{{ s.count }}{% if not loop.last %},{% endif %}{% endfor %}],
+            backgroundColor: ['#22c55e','#3b82f6','#f59e0b','#ef4444','#6b7280'],
+            borderWidth: 2,
+            borderColor: isDark ? '#1e293b' : '#ffffff'
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '65%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { padding: 12, font: { size: 12 } }
+            }
+        }
+    }
+});
+
+// ── 4. Ticket Status (Doughnut) ────────────────────────────────────────────
+const statusLabels = [{% for s in status_data %}'{{ s.status }}'{% if not loop.last %},{% endif %}{% endfor %}];
+const statusColors = statusLabels.map(l => COLORS_STATUS[l] || '#6b7280');
+
+new Chart(document.getElementById('ticketStatusChart'), {
+    type: 'doughnut',
+    data: {
+        labels: statusLabels,
+        datasets: [{
+            data: [{% for s in status_data %}{{ s.count }}{% if not loop.last %},{% endif %}{% endfor %}],
+            backgroundColor: statusColors,
+            borderWidth: 2,
+            borderColor: isDark ? '#1e293b' : '#ffffff'
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '65%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { padding: 12, font: { size: 12 } }
+            }
+        }
+    }
+});
+
+// ── 5. Ticket Priority (Pie) ───────────────────────────────────────────────
+const priorityLabels = [{% for p in priority_data %}'{{ p.priority }}'{% if not loop.last %},{% endif %}{% endfor %}];
+const priorityColors = priorityLabels.map(l => COLORS_PRIORITY[l] || '#6b7280');
+
+new Chart(document.getElementById('ticketPriorityChart'), {
+    type: 'pie',
+    data: {
+        labels: priorityLabels,
+        datasets: [{
+            data: [{% for p in priority_data %}{{ p.count }}{% if not loop.last %},{% endif %}{% endfor %}],
+            backgroundColor: priorityColors,
+            borderWidth: 2,
+            borderColor: isDark ? '#1e293b' : '#ffffff'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { padding: 12, font: { size: 12 } }
+            }
+        }
+    }
+});
+
+// ── 6. Employee Workload (Bar) ─────────────────────────────────────────────
+new Chart(document.getElementById('workloadChart'), {
+    type: 'bar',
+    data: {
+        labels: [{% for emp in emp_workload %}'{{ emp.name }}'{% if not loop.last %},{% endif %}{% endfor %}],
+        datasets: [{
+            label: 'Active Tickets',
+            data: [{% for emp in emp_workload %}{{ emp.tickets }}{% if not loop.last %},{% endif %}{% endfor %}],
+            backgroundColor: COLORS_MAIN,
+            borderRadius: 6,
+            borderSkipped: false
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ` ${ctx.parsed.y} active ticket(s)`
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: { stepSize: 1 },
+                grid: { color: gridColor }
+            },
+            x: { grid: { display: false } }
+        }
+    }
+});
+
+// ── Refresh button: reload page to get fresh data ─────────────────────────
+function refreshAll() {
+    const btn = document.querySelector('.btn-refresh');
+    btn.textContent = '⏳ Refreshing...';
+    setTimeout(() => location.reload(), 300);
+}
+</script>
+
+{% endblock %}

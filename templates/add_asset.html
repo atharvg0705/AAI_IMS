@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 <div class="container">
     <h1>Add New Asset</h1>
     
-    <form method="POST" class="asset-form">
+    <form method="POST" enctype="multipart/form-data" class="asset-form">
         <!-- Basic Information -->
         <div class="form-section">
             <h3>📋 Basic Information</h3>
@@ -310,12 +311,55 @@
             </div>
         </div>
         
+        <!-- Document Upload (Optional) -->
+        <div class="form-section">
+            <h3>📄 Upload Document (Optional)</h3>
+            <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 1rem;">
+                Upload related documents like purchase invoice, warranty card, or approval letter
+            </p>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Document Name</label>
+                    <input type="text" name="document_name" class="form-control" placeholder="e.g., Purchase Invoice - HP Laptop">
+                </div>
+                
+                <div class="form-group">
+                    <label>Document Type</label>
+                    <select name="document_type" class="form-control">
+                        <option value="">-- Select Type --</option>
+                        <option value="Purchase Invoice">Purchase Invoice</option>
+                        <option value="Warranty Card">Warranty Card</option>
+                        <option value="Approval Letter">Approval Letter</option>
+                        <option value="AMC Agreement">AMC Agreement</option>
+                        <option value="Installation Certificate">Installation Certificate</option>
+                        <option value="Handover Document">Handover Document</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Upload File (PDF, PNG, JPG)</label>
+                <input type="file" name="document" accept=".pdf,.png,.jpg,.jpeg" class="form-control" style="padding: 0.5rem;">
+                <small style="color: #6b7280; display: block; margin-top: 0.5rem;">
+                    Maximum file size: 5MB
+                </small>
+            </div>
+            
+            <div class="form-group">
+                <label>Remarks (1-2 lines)</label>
+                <input type="text" name="document_remarks" class="form-control" placeholder="Brief note about this document" maxlength="500">
+            </div>
+        </div>
+        
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Add Asset</button>
             <a href="{{ url_for('list_assets') }}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>
+
 
 <script>
 // Show/hide technical specs based on category
@@ -336,6 +380,7 @@ document.getElementById('categorySelect').addEventListener('change', function() 
     }
 });
 </script>
+
 
 <style>
 .asset-form {

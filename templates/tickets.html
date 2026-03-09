@@ -1,0 +1,466 @@
+{% extends 'base.html' %}
+{% block page_name %}Tickets{% endblock %}
+
+{% block extra_css %}
+<style>
+
+/* ── SLIM PAGE HEADER ──────────────────────────────────── */
+.tickets-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.tickets-topbar-left h1 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin: 0 0 0.15rem 0;
+}
+
+.tickets-topbar-left p {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.topbar-alerts {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+/* ── COMPACT STATS BAR ─────────────────────────────────── */
+.stats-bar {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.stat-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 1px 4px var(--shadow);
+    flex: 1 1 120px;
+    min-width: 0;
+}
+
+.stat-chip-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.stat-chip-num {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+}
+
+.stat-chip-num.warn   { color: #f59e0b; }
+.stat-chip-num.danger { color: #ef4444; }
+
+.stat-chip-lbl {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+/* ── FULL-WIDTH TABLE CARD ─────────────────────────────── */
+.table-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.table-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 1.4rem;
+    border-bottom: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.table-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* table itself stretches fully */
+.table-card table {
+    width: 100%;
+    table-layout: auto;
+}
+
+/* column width hints */
+.table-card table th:nth-child(1) { width: 130px; } /* Ticket # */
+.table-card table th:nth-child(2) { width: auto; }  /* Title — stretches */
+.table-card table th:nth-child(3) { width: 120px; } /* Raised By */
+.table-card table th:nth-child(4) { width: 130px; } /* Assigned To */
+.table-card table th:nth-child(5) { width: 110px; } /* Priority */
+.table-card table th:nth-child(6) { width: 110px; } /* Status */
+.table-card table th:nth-child(7) { width: 120px; } /* Action */
+
+.table-card td { color: var(--text-primary); }
+.table-card th { color: #ffffff; }
+
+/* ── BADGE ─────────────────────────────────────────────── */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.73rem;
+    font-weight: 600;
+}
+
+.badge-open       { background: #dbeafe; color: #1e40af; }
+.badge-progress   { background: #fef3c7; color: #92400e; }
+.badge-resolved   { background: #dcfce7; color: #166534; }
+.badge-unassigned { background: #f3f4f6; color: #6b7280; }
+
+/* ── PRIORITY ──────────────────────────────────────────── */
+.priority-high   { color: #ef4444; font-weight: 700; font-size: 0.85rem; }
+.priority-medium { color: #f59e0b; font-weight: 700; font-size: 0.85rem; }
+.priority-low    { color: #22c55e; font-weight: 700; font-size: 0.85rem; }
+
+/* ── ACTION BTN ────────────────────────────────────────── */
+.btn-assign {
+    padding: 0.38rem 0.9rem;
+    font-size: 0.78rem;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.btn-assign:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+
+/* ── EMPTY STATE ───────────────────────────────────────── */
+.empty-state {
+    text-align: center;
+    padding: 3.5rem 2rem;
+    color: var(--text-secondary);
+}
+
+/* ── WORKLOAD BOTTOM PANEL ─────────────────────────────── */
+.workload-panel {
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 12px var(--shadow);
+    overflow: hidden;
+}
+
+.workload-panel-header {
+    padding: 0.85rem 1.4rem;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.workload-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.65rem;
+    padding: 1rem 1.2rem;
+}
+
+/* ── EMPLOYEE ROW ──────────────────────────────────────── */
+.emp-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    transition: all 0.22s;
+}
+
+.emp-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.emp-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+    color: #fff;
+}
+
+.emp-avatar.available   { background: #22c55e; }
+.emp-avatar.busy        { background: #f59e0b; }
+.emp-avatar.full        { background: #ef4444; }
+.emp-avatar.unavailable { background: #9ca3af; }
+
+.emp-info { flex: 1; min-width: 0; }
+
+.emp-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.emp-meta {
+    font-size: 0.69rem;
+    color: var(--text-secondary);
+    margin-top: 0.1rem;
+}
+
+.emp-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+    width: 48px;
+}
+
+.emp-bar {
+    width: 48px;
+    height: 5px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.emp-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+.emp-bar-fill.low    { background: #22c55e; }
+.emp-bar-fill.medium { background: #f59e0b; }
+.emp-bar-fill.high   { background: #ef4444; }
+
+.emp-pct {
+    font-size: 0.64rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .stats-bar { gap: 0.4rem; }
+    .stat-chip { flex: 1 1 45%; }
+    .workload-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+    .stat-chip { flex: 1 1 100%; }
+    .workload-grid { grid-template-columns: 1fr; }
+}
+</style>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- ── SLIM TOPBAR ── -->
+<div class="tickets-topbar">
+    <div class="tickets-topbar-left">
+        <h1>🎫 Ticket Management</h1>
+        <p>Assign, track, and resolve support tickets across departments</p>
+    </div>
+    <div class="topbar-alerts">
+        {% if stats.unassigned > 0 %}
+        <span class="badge badge-unassigned" style="font-size:0.8rem;padding:0.35rem 0.9rem;">
+            ❓ {{ stats.unassigned }} Unassigned
+        </span>
+        {% endif %}
+        {% if stats.overdue > 0 %}
+        <span class="badge" style="background:#fee2e2;color:#991b1b;font-size:0.8rem;padding:0.35rem 0.9rem;">
+            ⚠️ {{ stats.overdue }} Overdue
+        </span>
+        {% endif %}
+    </div>
+</div>
+
+<!-- ── COMPACT STATS BAR ── -->
+<div class="stats-bar">
+    <div class="stat-chip">
+        <div class="stat-chip-icon">📊</div>
+        <div>
+            <div class="stat-chip-num">{{ stats.total }}</div>
+            <div class="stat-chip-lbl">Total Tickets</div>
+        </div>
+    </div>
+    <div class="stat-chip">
+        <div class="stat-chip-icon">🆕</div>
+        <div>
+            <div class="stat-chip-num">{{ stats.open }}</div>
+            <div class="stat-chip-lbl">Open</div>
+        </div>
+    </div>
+    <div class="stat-chip">
+        <div class="stat-chip-icon">⏳</div>
+        <div>
+            <div class="stat-chip-num">{{ stats.in_progress }}</div>
+            <div class="stat-chip-lbl">In Progress</div>
+        </div>
+    </div>
+    <div class="stat-chip">
+        <div class="stat-chip-icon">❓</div>
+        <div>
+            <div class="stat-chip-num warn">{{ stats.unassigned }}</div>
+            <div class="stat-chip-lbl">Unassigned</div>
+        </div>
+    </div>
+    <div class="stat-chip">
+        <div class="stat-chip-icon">⚠️</div>
+        <div>
+            <div class="stat-chip-num danger">{{ stats.overdue }}</div>
+            <div class="stat-chip-lbl">Overdue</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── FULL-WIDTH TICKETS TABLE ── -->
+<div class="table-card">
+    <div class="table-card-header">
+        <span class="table-card-title">All Tickets</span>
+        <span style="font-size:0.8rem;color:var(--text-secondary);">
+            {{ tickets | length }} ticket{{ 's' if tickets | length != 1 else '' }}
+        </span>
+    </div>
+
+    {% if tickets %}
+    <table>
+        <thead>
+            <tr>
+                <th>Ticket #</th>
+                <th>Title</th>
+                <th>Raised By</th>
+                <th>Assigned To</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in tickets %}
+            <tr>
+                <td><strong>{{ ticket.ticket_number }}</strong></td>
+                <td>{{ ticket.title }}</td>
+                <td>{{ ticket.raised_by.name if ticket.raised_by else 'Unknown' }}</td>
+                <td>
+                    {% if ticket.assigned_to %}
+                    <span class="badge badge-progress">{{ ticket.assigned_to.name }}</span>
+                    {% else %}
+                    <span class="badge badge-unassigned">Unassigned</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ticket.priority == 'Critical' %}
+                    <span class="priority-high">🔴 Critical</span>
+                    {% elif ticket.priority == 'High' %}
+                    <span class="priority-high">🔴 High</span>
+                    {% elif ticket.priority == 'Medium' %}
+                    <span class="priority-medium">🟡 Medium</span>
+                    {% elif ticket.priority == 'Low' %}
+                    <span class="priority-low">🟢 Low</span>
+                    {% else %}
+                    <span>{{ ticket.priority }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if ticket.status == 'Open' %}
+                    <span class="badge badge-open">Open</span>
+                    {% elif ticket.status == 'In Progress' %}
+                    <span class="badge badge-progress">In Progress</span>
+                    {% elif ticket.status == 'Resolved' %}
+                    <span class="badge badge-resolved">Resolved</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/ticket/{{ ticket.id }}" class="btn-assign">View & Assign</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <div style="font-size:3rem;margin-bottom:0.75rem;">📭</div>
+        <p>No tickets found!</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- ── EMPLOYEE WORKLOAD (BELOW TABLE) ── -->
+<div class="workload-panel">
+    <div class="workload-panel-header">
+        👥 Employee Workload
+    </div>
+    <div class="workload-grid">
+        {% for emp in employee_stats %}
+        <div class="emp-row">
+            <div class="emp-avatar {{ emp.status }}">
+                {{ emp.name[0] | upper }}
+            </div>
+            <div class="emp-info">
+                <div class="emp-name">{{ emp.name }}</div>
+                <div class="emp-meta">
+                    {{ emp.active_tickets }}/{{ emp.max_tickets }} tickets ·
+                    {{ emp.department }}
+                </div>
+            </div>
+            <div class="emp-bar-wrap">
+                <div class="emp-bar">
+                    <div class="emp-bar-fill
+                        {% if emp.workload_percent < 50 %}low
+                        {% elif emp.workload_percent < 80 %}medium
+                        {% else %}high{% endif %}"
+                        style="width: {{ emp.workload_percent }}%;">
+                    </div>
+                </div>
+                <div class="emp-pct">{{ emp.workload_percent }}%</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

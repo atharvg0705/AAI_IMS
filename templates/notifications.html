@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% block page_name %}Notifications{% endblock %}
+
+{% block content %}
+<div class="notifications-wrapper">
+
+    <div class="page-header">
+        <div class="page-header-left">
+            <h1 class="page-title">🔔 Notifications</h1>
+            <p class="page-subtitle">All your recent alerts and updates</p>
+        </div>
+    </div>
+
+    {% if notifications %}
+    <div class="notifications-list">
+        {% for notif in notifications %}
+        <div class="notif-card {% if not notif.is_read %}notif-unread{% endif %}">
+            <div class="notif-icon">
+                {% if 'Ticket' in notif.message or 'ticket' in notif.message %}
+                    🎫
+                {% elif 'Asset' in notif.message or 'asset' in notif.message %}
+                    📦
+                {% elif 'Overdue' in notif.message or 'overdue' in notif.message %}
+                    ⚠️
+                {% elif 'Resolved' in notif.message or 'resolved' in notif.message %}
+                    ✅
+                {% else %}
+                    🔔
+                {% endif %}
+            </div>
+            <div class="notif-body">
+                <p class="notif-message">{{ notif.message }}</p>
+                <span class="notif-time">{{ notif.created_at.strftime('%d %b %Y, %I:%M %p') }}</span>
+            </div>
+            <div class="notif-actions">
+                {% if notif.link %}
+                <a href="{{ notif.link }}" class="btn-notif-view">View →</a>
+                {% endif %}
+                {% if not notif.is_read %}
+                <span class="badge-unread">New</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="empty-state">
+        <div class="empty-icon">🔕</div>
+        <h3>No notifications yet</h3>
+        <p>You'll see alerts here when tickets are assigned, resolved, or assets are updated.</p>
+    </div>
+    {% endif %}
+
+</div>
+
+<style>
+.notifications-wrapper {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.page-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0.25rem 0 0;
+}
+
+.notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.notif-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: box-shadow 0.2s, transform 0.1s;
+}
+
+.notif-card:hover {
+    box-shadow: 0 4px 16px var(--shadow);
+    transform: translateY(-1px);
+}
+
+.notif-unread {
+    border-left: 4px solid #3b82f6;
+    background: linear-gradient(90deg, rgba(59,130,246,0.05) 0%, var(--bg-card) 100%);
+}
+
+.notif-icon {
+    font-size: 1.8rem;
+    min-width: 44px;
+    text-align: center;
+}
+
+.notif-body {
+    flex: 1;
+}
+
+.notif-message {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 500;
+    margin: 0 0 0.3rem;
+    line-height: 1.4;
+}
+
+.notif-time {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.notif-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+}
+
+.btn-notif-view {
+    font-size: 0.82rem;
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.btn-notif-view:hover {
+    text-decoration: underline;
+}
+
+.badge-unread {
+    background: #3b82f6;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+    font-size: 1.2rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+    .notif-card {
+        flex-wrap: wrap;
+    }
+    .notif-actions {
+        flex-direction: row;
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+</style>
+{% endblock %}
